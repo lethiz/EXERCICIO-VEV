@@ -2,8 +2,11 @@ package repositories;
 
 import models.Voo;
 
+import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class VooRepository {
 
@@ -27,6 +30,12 @@ public class VooRepository {
 
     public void removerVooPorId(UUID vooId) {
         this.voos.removeIf(voo -> voo.getID().equals(vooId));
+    }
+
+    public List<Voo> getVoosPorOrigem(String origem) {
+        return this.voos.stream()
+                .filter(voo -> voo.getOrigem().equals(origem))
+                .collect(Collectors.toList());
     }
 
 }
