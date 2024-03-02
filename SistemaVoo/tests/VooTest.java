@@ -1,4 +1,5 @@
 import models.Voo;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -37,5 +38,18 @@ public class VooTest {
         Voo novoVoo = new Voo("Brasil", "Argentina", 200, new Date());
         novoVoo.setDestino("Chile");
         assertEquals(novoVoo.getDestino(), "Chile");
+    }
+
+    @Test
+    public void getTotalPassageiros() {
+        Voo novoVoo = new Voo("Brasil", "Argentina", 200, new Date());
+        assertEquals(novoVoo.getTotalPassageiros(), 200);
+    }
+
+    @Test
+    public void setTotalPassageiros() {
+        Voo novoVoo = new Voo("Brasil", "Argentina", 200, new Date());
+        novoVoo.setTotalPassageiros(150);
+        assertEquals(novoVoo.getTotalPassageiros(), 150);
     }
 }
