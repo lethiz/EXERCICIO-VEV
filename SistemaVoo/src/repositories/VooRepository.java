@@ -38,4 +38,10 @@ public class VooRepository {
                 .collect(Collectors.toList());
     }
 
+    public List<Voo> getVoosPorDestino(String destino) {
+        return this.voos.stream()
+                .filter(voo -> voo.getDestino().equals(destino))
+                .collect(Collectors.toList());
+    }
+
 }

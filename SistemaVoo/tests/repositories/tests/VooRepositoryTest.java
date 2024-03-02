@@ -87,6 +87,7 @@ public class VooRepositoryTest {
         vooRepository.adicionarVoo(vooDelta);
 
         ArrayList<Voo> voosEsperados = new ArrayList<>(Arrays.asList(vooGama, vooDelta));
+
         assertEquals(vooRepository.getVoosPorDestino("Reino Unido"), voosEsperados);
     }
 }
