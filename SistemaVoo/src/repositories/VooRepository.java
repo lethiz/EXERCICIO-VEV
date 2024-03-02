@@ -11,4 +11,8 @@ public class VooRepository {
     public VooRepository(ArrayList<Voo> voos) {
         this.voos = voos;
     }
+
+    public int getTotalVoosCadastrados() {
+        return this.voos.size();
+    }
 }

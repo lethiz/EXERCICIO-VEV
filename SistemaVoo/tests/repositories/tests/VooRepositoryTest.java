@@ -26,7 +26,7 @@ public class VooRepositoryTest {
     }
 
     @Test
-    public void checkTamanhoRepositorio() {
-        assertEquals(vooRepository.totalVoos(), 0);
+    public void checkTotalVoosCadastrados() {
+        assertEquals(vooRepository.getTotalVoosCadastrados(), 0);
     }
 }
