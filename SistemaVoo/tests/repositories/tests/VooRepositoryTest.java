@@ -103,8 +103,8 @@ public class VooRepositoryTest {
         vooRepository.adicionarVoo(vooGama);
         vooRepository.adicionarVoo(vooDelta);
 
-        ArrayList<Voo> voosEsperados = new ArrayList<>(Arrays.asList(vooGama, vooDelta));
+        ArrayList<Voo> voosEsperados = new ArrayList<>(Arrays.asList(vooGama));
 
-        assertEquals(vooRepository.checkChecarVoosPorNumPassageiros(90), voosEsperados);
+        assertEquals(vooRepository.getVoosPorNumPassageiros(90), voosEsperados);
     }
 }

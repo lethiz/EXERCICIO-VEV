@@ -44,4 +44,10 @@ public class VooRepository {
                 .collect(Collectors.toList());
     }
 
+    public List<Voo> getVoosPorNumPassageiros(int numPassageiros) {
+        return this.voos.stream()
+                .filter(voo -> voo.getTotalPassageiros() == numPassageiros)
+                .collect(Collectors.toList());
+    }
+
 }
