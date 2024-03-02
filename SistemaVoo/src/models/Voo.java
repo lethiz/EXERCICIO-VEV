@@ -49,4 +49,8 @@ public class Voo {
     public void setData(LocalDate data) {
         this.data = data;
     }
+
+    public void decrementarTotalPassageiros() {
+        this.totalPassageiros--;
+    }
 }

@@ -63,7 +63,7 @@ public class VooTest {
 
     @Test
     public void decrementarQuantidadePassageiros() {
-        novoVoo.diminuirTotalPassageiros();
+        novoVoo.decrementarTotalPassageiros();
         assertEquals(novoVoo.getTotalPassageiros(), 199);
     }
 }
