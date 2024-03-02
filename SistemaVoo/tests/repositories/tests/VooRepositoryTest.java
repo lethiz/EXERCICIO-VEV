@@ -38,4 +38,13 @@ public class VooRepositoryTest {
         assertEquals(vooRepository.getTotalVoosCadastrados(), 1);
 
     }
+
+    @Test
+    public void checkRemoverVoo() {
+        Voo novoVoo = new Voo("Estados Unidos", "Brasil", 100, LocalDate.now());
+        vooRepository.adicionarVoo(novoVoo);
+        vooRepository.removerVoo(novoVoo);
+        assertEquals(vooRepository.getTotalVoosCadastrados(), 0);
+
+    }
 }
