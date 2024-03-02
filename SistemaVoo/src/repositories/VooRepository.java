@@ -15,4 +15,8 @@ public class VooRepository {
     public int getTotalVoosCadastrados() {
         return this.voos.size();
     }
+
+    public void adicionarVoo(Voo voo) {
+        this.voos.add(voo);
+    }
 }

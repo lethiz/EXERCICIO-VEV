@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import repositories.VooRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,5 +29,13 @@ public class VooRepositoryTest {
     @Test
     public void checkTotalVoosCadastrados() {
         assertEquals(vooRepository.getTotalVoosCadastrados(), 0);
+    }
+
+    @Test
+    public void checkAdicionarVoo() {
+        Voo novoVoo = new Voo("Estados Unidos", "Brasil", 100, LocalDate.now());
+        vooRepository.adicionarVoo(novoVoo);
+        assertEquals(vooRepository.getTotalVoosCadastrados(), 1);
+
     }
 }

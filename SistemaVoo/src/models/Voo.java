@@ -1,8 +1,11 @@
 package models;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Voo {
+
+    private UUID ID;
 
     private String origem;
     private String destino;
@@ -11,6 +14,7 @@ public class Voo {
     private LocalDate data;
 
     public Voo(String origem, String destino, int totalPassageiros, LocalDate data) {
+        this.ID = UUID.randomUUID();
         this.origem = origem;
         this.destino = destino;
         this.totalPassageiros = totalPassageiros;
