@@ -12,4 +12,10 @@ public class VooTest {
         Voo novoVoo = new Voo("Brasil", "Argentina", 200, new Date());
         assertNotNull(novoVoo);
     }
+
+    @Test
+    public void getVooOrigem() {
+        Voo novoVoo = new Voo("Brasil", "Argentina", 200, new Date());
+        assertEquals(novoVoo.getOrigem(), "Brasil");
+    }
 }
