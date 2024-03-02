@@ -25,6 +25,8 @@ public class VooRepository {
         this.voos.remove(voo);
     }
 
-
+    public void removerVooPorId(UUID vooId) {
+        this.voos.removeIf(voo -> voo.getID().equals(vooId));
+    }
 
 }
