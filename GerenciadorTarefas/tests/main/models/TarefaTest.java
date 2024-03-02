@@ -25,7 +25,7 @@ class TarefaTest {
     }
 
     @Test
-    public void criarTarefa(){
+    public void atualizarTarefa(){
         this.tarefaTeste.setTitulo("Título Atualizado");
         this.tarefaTeste.setDescricao("Descrição Atualizada");
         this.tarefaTeste.setDataVencimento("26/09/2024");
