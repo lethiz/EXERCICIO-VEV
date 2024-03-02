@@ -22,4 +22,7 @@ public class Voo {
         return origem;
     }
 
+    public void setOrigem(String origem) {
+        this.origem = origem;
+    }
 }
