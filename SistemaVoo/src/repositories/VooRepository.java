@@ -2,6 +2,7 @@ package repositories;
 
 import models.Voo;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,12 @@ public class VooRepository {
     public List<Voo> getVoosPorNumPassageiros(int numPassageiros) {
         return this.voos.stream()
                 .filter(voo -> voo.getTotalPassageiros() == numPassageiros)
+                .collect(Collectors.toList());
+    }
+
+    public List<Voo> getVoosPorData(LocalDate data) {
+        return this.voos.stream()
+                .filter(voo -> voo.getData().equals(data))
                 .collect(Collectors.toList());
     }
 

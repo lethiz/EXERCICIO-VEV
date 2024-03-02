@@ -9,6 +9,7 @@ import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,14 +32,14 @@ public class VooRepositoryTest {
 
     @Test
     public void checkTotalVoosCadastrados() {
-        assertEquals(vooRepository.getTotalVoosCadastrados(), 0);
+        assertEquals(0, vooRepository.getTotalVoosCadastrados());
     }
 
     @Test
     public void checkAdicionarVoo() {
         Voo novoVoo = new Voo("Estados Unidos", "Brasil", 100, LocalDate.now(), 983);
         vooRepository.adicionarVoo(novoVoo);
-        assertEquals(vooRepository.getTotalVoosCadastrados(), 1);
+        assertEquals(1, vooRepository.getTotalVoosCadastrados());
 
     }
 
@@ -47,7 +48,7 @@ public class VooRepositoryTest {
         Voo novoVoo = new Voo("Estados Unidos", "Brasil", 100, LocalDate.now(), 1202);
         vooRepository.adicionarVoo(novoVoo);
         vooRepository.removerVoo(novoVoo);
-        assertEquals(vooRepository.getTotalVoosCadastrados(), 0);
+        assertEquals(0, vooRepository.getTotalVoosCadastrados());
     }
     @Test
     public void checkRemoverVooPorId() {
@@ -55,7 +56,7 @@ public class VooRepositoryTest {
         UUID novoVooId = novoVoo.getID();
         vooRepository.adicionarVoo(novoVoo);
         vooRepository.removerVooPorId(novoVooId);
-        assertEquals(vooRepository.getTotalVoosCadastrados(), 0);
+        assertEquals(0, vooRepository.getTotalVoosCadastrados());
     }
 
     @Test
@@ -71,7 +72,7 @@ public class VooRepositoryTest {
         vooRepository.adicionarVoo(vooDelta);
 
         ArrayList<Voo> voosEsperados = new ArrayList<>(Arrays.asList(vooAlpha, vooBeta, vooDelta));
-        assertEquals(vooRepository.getVoosPorOrigem("Brasil"), voosEsperados);
+        assertEquals(voosEsperados, vooRepository.getVoosPorOrigem("Brasil"));
     }
 
     @Test
@@ -88,7 +89,7 @@ public class VooRepositoryTest {
 
         ArrayList<Voo> voosEsperados = new ArrayList<>(Arrays.asList(vooGama, vooDelta));
 
-        assertEquals(vooRepository.getVoosPorDestino("Reino Unido"), voosEsperados);
+        assertEquals(voosEsperados, vooRepository.getVoosPorDestino("Reino Unido"));
     }
 
     @Test
@@ -103,21 +104,21 @@ public class VooRepositoryTest {
         vooRepository.adicionarVoo(vooGama);
         vooRepository.adicionarVoo(vooDelta);
 
-        ArrayList<Voo> voosEsperados = new ArrayList<>(Arrays.asList(vooGama));
+        ArrayList<Voo> voosEsperados = new ArrayList<>(List.of(vooGama));
 
-        assertEquals(vooRepository.getVoosPorNumPassageiros(90), voosEsperados);
+        assertEquals(voosEsperados, vooRepository.getVoosPorNumPassageiros(90));
     }
 
     @Test
-    public void checkGetVoosPorData(LocalDate data) {
+    public void checkGetVoosPorData() {
         Voo vooAlpha = new Voo("Brasil", "Argentina", 50, LocalDate.now().plusDays(7), 2308);
 
         vooRepository.adicionarVoo(vooAlpha);
 
-        ArrayList<Voo> voosEsperados = new ArrayList<>(Arrays.asList(vooAlpha));
+        ArrayList<Voo> voosEsperados = new ArrayList<>(List.of(vooAlpha));
 
         LocalDate hoje = LocalDate.now();
         LocalDate proxSemana = hoje.plusDays(7);
-        assertEquals(vooRepository.getVoosPorData(proxSemana), proxSemana);
+        assertEquals(voosEsperados, vooRepository.getVoosPorData(proxSemana));
     }
 }
