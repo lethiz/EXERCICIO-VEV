@@ -1,3 +1,5 @@
+package models.tests;
+
 import models.Voo;
 import org.junit.Before;
 import org.junit.Test;
