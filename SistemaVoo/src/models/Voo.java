@@ -18,4 +18,7 @@ public class Voo {
     }
 
 
+    public String getOrigem() {
+        return origem;
+    }
 }
