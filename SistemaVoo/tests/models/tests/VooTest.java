@@ -15,13 +15,13 @@ public class VooTest {
 
     @Before
     public void setupVoos() {
-        novoVoo = new Voo("Brasil", "Argentina", 200, LocalDate.now());
+        novoVoo = new Voo("Brasil", "Argentina", 200, LocalDate.now(), 3289);
         vooId = novoVoo.getID();
     }
 
     @Test
     public void testCriarVoo() {
-        Voo novoVoo = new Voo("Brasil", "Argentina", 200, LocalDate.now());
+        Voo novoVoo = new Voo("Brasil", "Argentina", 200, LocalDate.now(), 2344);
         assertNotNull(novoVoo);
     }
 

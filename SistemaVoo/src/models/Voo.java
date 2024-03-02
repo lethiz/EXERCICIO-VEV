@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class Voo {
 
-    private UUID ID;
+    private final UUID ID;
 
     private String origem;
     private String destino;
@@ -13,7 +13,10 @@ public class Voo {
 
     private LocalDate data;
 
-    public Voo(String origem, String destino, int totalPassageiros, LocalDate data) {
+    private float preco;
+
+    public Voo(String origem, String destino, int totalPassageiros, LocalDate data, float preco) {
+        this.preco = preco;
         this.ID = UUID.randomUUID();
         this.origem = origem;
         this.destino = destino;
