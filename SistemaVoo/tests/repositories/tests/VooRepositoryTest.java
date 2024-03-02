@@ -7,6 +7,7 @@ import repositories.VooRepository;
 
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class VooRepositoryTest {
@@ -20,7 +21,12 @@ public class VooRepositoryTest {
     }
 
     @Test
-    public void checkCreated() {
+    public void checkRepositorioCriado() {
         assertNotNull(vooRepository);
+    }
+
+    @Test
+    public void checkTamanhoRepositorio() {
+        assertEquals(vooRepository.totalVoos(), 0);
     }
 }

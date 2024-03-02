@@ -17,52 +17,52 @@ public class VooTest {
     }
 
     @Test
-    public void criarVoo() {
+    public void testCriarVoo() {
         Voo novoVoo = new Voo("Brasil", "Argentina", 200, LocalDate.now());
         assertNotNull(novoVoo);
     }
 
     @Test
-    public void getVooOrigem() {
+    public void testGetVooOrigem() {
         assertEquals(novoVoo.getOrigem(), "Brasil");
     }
 
     @Test
-    public void setVooOrigem() {
+    public void testSetVooOrigem() {
         novoVoo.setOrigem("Chile");
         assertEquals(novoVoo.getOrigem(), "Chile");
     }
 
     @Test
-    public void getVooDestino() {
+    public void testGetVooDestino() {
         assertEquals(novoVoo.getDestino(), "Argentina");
     }
 
     @ Test
-    public void setVooDestino() {
+    public void testSetVooDestino() {
         novoVoo.setDestino("Chile");
         assertEquals(novoVoo.getDestino(), "Chile");
     }
 
     @Test
-    public void getTotalPassageiros() {
+    public void testGetTotalPassageiros() {
         assertEquals(novoVoo.getTotalPassageiros(), 200);
     }
 
     @Test
-    public void setTotalPassageiros() {
+    public void testSetTotalPassageiros() {
         novoVoo.setTotalPassageiros(150);
         assertEquals(novoVoo.getTotalPassageiros(), 150);
     }
 
     @Test
-    public void getData() {
+    public void testGetData() {
         String dataVoo = novoVoo.getData().toString();
         assertEquals(dataVoo, LocalDate.now().toString());
     }
 
     @Test
-    public void decrementarQuantidadePassageiros() {
+    public void testDecrementarQuantidadePassageiros() {
         novoVoo.decrementarTotalPassageiros();
         assertEquals(novoVoo.getTotalPassageiros(), 199);
     }
