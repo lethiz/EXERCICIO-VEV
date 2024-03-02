@@ -1,6 +1,6 @@
 package models;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Voo {
 
@@ -8,9 +8,9 @@ public class Voo {
     private String destino;
     private int totalPassageiros;
 
-    private Date data;
+    private LocalDate data;
 
-    public Voo(String origem, String destino, int totalPassageiros, Date data) {
+    public Voo(String origem, String destino, int totalPassageiros, LocalDate data) {
         this.origem = origem;
         this.destino = destino;
         this.totalPassageiros = totalPassageiros;
@@ -40,5 +40,13 @@ public class Voo {
 
     public void setTotalPassageiros(int totalPassageiros) {
         this.totalPassageiros = totalPassageiros;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
     }
 }
