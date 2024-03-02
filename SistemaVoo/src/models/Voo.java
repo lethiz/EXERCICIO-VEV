@@ -33,4 +33,12 @@ public class Voo {
     public void setDestino(String destino) {
         this.destino = destino;
     }
+
+    public int getTotalPassageiros() {
+        return totalPassageiros;
+    }
+
+    public void setTotalPassageiros(int totalPassageiros) {
+        this.totalPassageiros = totalPassageiros;
+    }
 }
