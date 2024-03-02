@@ -25,4 +25,17 @@ public class VooTest {
         novoVoo.setOrigem("Chile");
         assertEquals(novoVoo.getOrigem(), "Chile");
     }
+
+    @Test
+    public void getVooDestino() {
+        Voo novoVoo = new Voo("Brasil", "Argentina", 200, new Date());
+        assertEquals(novoVoo.getDestino(), "Argentina");
+    }
+
+    @ Test
+    public void setVooDestino() {
+        Voo novoVoo = new Voo("Brasil", "Argentina", 200, new Date());
+        novoVoo.setDestino("Chile");
+        assertEquals(novoVoo.getDestino(), "Chile");
+    }
 }
