@@ -18,4 +18,11 @@ public class VooTest {
         Voo novoVoo = new Voo("Brasil", "Argentina", 200, new Date());
         assertEquals(novoVoo.getOrigem(), "Brasil");
     }
+
+    @Test
+    public void setVooOrigem() {
+        Voo novoVoo = new Voo("Brasil", "Argentina", 200, new Date());
+        novoVoo.setOrigem("Chile");
+        assertEquals(novoVoo.getOrigem(), "Chile");
+    }
 }
