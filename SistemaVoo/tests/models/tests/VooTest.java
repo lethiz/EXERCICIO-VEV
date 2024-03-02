@@ -5,21 +5,29 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 public class VooTest {
 
     private static Voo novoVoo;
+    private static UUID vooId;
 
     @Before
     public void setupVoos() {
         novoVoo = new Voo("Brasil", "Argentina", 200, LocalDate.now());
+        vooId = novoVoo.getID();
     }
 
     @Test
     public void testCriarVoo() {
         Voo novoVoo = new Voo("Brasil", "Argentina", 200, LocalDate.now());
         assertNotNull(novoVoo);
+    }
+
+    @Test
+    public void testGetId() {
+        assertEquals(novoVoo.getID(), vooId);
     }
 
     @Test

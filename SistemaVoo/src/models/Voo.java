@@ -21,6 +21,9 @@ public class Voo {
         this.data = data;
     }
 
+    public UUID getID() {
+        return ID;
+    }
 
     public String getOrigem() {
         return origem;
@@ -57,4 +60,6 @@ public class Voo {
     public void decrementarTotalPassageiros() {
         this.totalPassageiros--;
     }
+
+
 }

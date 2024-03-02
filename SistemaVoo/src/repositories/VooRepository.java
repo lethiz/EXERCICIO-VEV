@@ -3,6 +3,7 @@ package repositories;
 import models.Voo;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class VooRepository {
 
@@ -19,5 +20,11 @@ public class VooRepository {
     public void adicionarVoo(Voo voo) {
         this.voos.add(voo);
     }
+
+    public void removerVoo(Voo voo) {
+        this.voos.remove(voo);
+    }
+
+
 
 }

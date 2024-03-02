@@ -7,6 +7,7 @@ import repositories.VooRepository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -45,6 +46,14 @@ public class VooRepositoryTest {
         vooRepository.adicionarVoo(novoVoo);
         vooRepository.removerVoo(novoVoo);
         assertEquals(vooRepository.getTotalVoosCadastrados(), 0);
+    }
 
+    @Test
+    public void checkRemoverVooPorId() {
+        Voo novoVoo = new Voo("Estados Unidos", "Brasil", 100, LocalDate.now());
+        UUID novoVooId = novoVoo.getID();
+        vooRepository.adicionarVoo(novoVoo);
+        vooRepository.removerVooPorId(novoVooId);
+        assertEquals(vooRepository.getTotalVoosCadastrados(), 0);
     }
 }
