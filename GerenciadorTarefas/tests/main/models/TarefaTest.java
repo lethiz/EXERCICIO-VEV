@@ -35,5 +35,5 @@ class TarefaTest {
         assertEquals("26/09/2024", tarefaTeste.getDataVencimento());
         assertEquals(TarefaPrioridade.PRIORIDADE_MEDIA, tarefaTeste.getPrioridade());
     }
-}
+
 }
