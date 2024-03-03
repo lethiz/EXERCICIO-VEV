@@ -61,9 +61,18 @@ public class TarefaService implements ITarefaService{
         return tarefaRecuperadas.stream().sorted(Comparator.comparing(Tarefa::getPrioridade)).toList();
     }
 
-    @Override
     public Tarefa marcarPrioridade(String idTarefa, TarefaPrioridade tarefaPrioridade) throws InvalidIDException, InvalidTarefaException, InvalidPrioridadeException {
-        return null;
+        checkInvalids.checkId(idTarefa);
+
+        Tarefa tarefaRecuperada = tarefasRepository.recuperarTarefa(idTarefa);
+
+        checkInvalids.checkTarefa(tarefaRecuperada, "recuperar");
+
+        tarefaRecuperada.setPrioridade(tarefaPrioridade);
+
+        tarefasRepository.atualizarTarefa(tarefaRecuperada);
+
+        return tarefaRecuperada;
     }
 
     @Override
