@@ -55,6 +55,27 @@ class TarefaTest {
     }
 
     @Test
+    public void criarTarefaDataVencimentoInvalida(){
+        assertThrows(InvalidDataVencimentoException.class, () -> {
+            Tarefa tarefaCriada =  new Tarefa("Título Criado", "Descrição Criação", null, TarefaPrioridade.PRIORIDADE_BAIXA);
+        });
+        assertThrows(InvalidDataVencimentoException.class, () -> {
+            Tarefa tarefaCriada =  new Tarefa("Título Criado", "Descrição Criação", "", TarefaPrioridade.PRIORIDADE_BAIXA);
+        });
+        assertThrows(InvalidDataVencimentoException.class, () -> {
+            Tarefa tarefaCriada =  new Tarefa( "Título Criado", "Descrição Criação", "     ", TarefaPrioridade.PRIORIDADE_BAIXA);
+        });
+    }
+
+    @Test
+    public void criarTarefaPrioridadeInvalida(){
+        assertThrows(InvalidPrioridadeException.class, () -> {
+            Tarefa tarefaCriada =  new Tarefa("Título Criado", "Descrição Criação", "25/09/2024", null);
+        });
+
+    }
+
+    @Test
     public void atualizarTarefa() throws InvalidTituloException, InvalidDescricaoException, InvalidDataVencimentoException, InvalidPrioridadeException {
         this.tarefaTeste.setTitulo("Título Atualizado");
         this.tarefaTeste.setDescricao("Descrição Atualizada");
