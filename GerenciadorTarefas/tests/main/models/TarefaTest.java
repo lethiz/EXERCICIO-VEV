@@ -31,7 +31,7 @@ class TarefaTest {
         this.tarefaTeste.setDataVencimento("26/09/2024");
         this.tarefaTeste.setPrioridade(TarefaPrioridade.PRIORIDADE_MEDIA);
         assertEquals("Título Atualizado", tarefaTeste.getTitulo());
-        assertEquals("Descrição Atualizado", tarefaTeste.getDescricao());
+        assertEquals("Descrição Atualizada", tarefaTeste.getDescricao());
         assertEquals("26/09/2024", tarefaTeste.getDataVencimento());
         assertEquals(TarefaPrioridade.PRIORIDADE_MEDIA, tarefaTeste.getPrioridade());
     }

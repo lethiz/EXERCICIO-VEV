@@ -6,13 +6,14 @@ import main.util.TarefaPrioridade;
 
 public class Tarefa {
 
-    private final String id = UUID.randomUUID().toString();
+    private final String id;
     private String titulo;
     private String descricao;
     private String dataVencimento;
     private TarefaPrioridade prioridade;
 
     public Tarefa(String titulo, String descricao, String dataVencimento, TarefaPrioridade prioridade) {
+        this.id = UUID.randomUUID().toString();
         this.titulo = titulo;
         this.descricao = descricao;
         this.dataVencimento = dataVencimento;

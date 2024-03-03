@@ -72,7 +72,8 @@ class TarefaRepositoryTest {
         assertEquals(contagem, 3);
 
         Tarefa tarefaRecuperada =  this.tarefaRepository.recuperarTarefa(tarefaTeste.getId());
-        assertEquals("Nova Descrição", tarefaRecuperada.getTitulo());
+        assertEquals("Nova Descrição", tarefaRecuperada.getDescricao());
+
     }
 
     @Test

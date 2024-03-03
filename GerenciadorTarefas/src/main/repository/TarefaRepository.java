@@ -16,36 +16,39 @@ public class TarefaRepository extends ITarefaRepository {
 
     @Override
     public HashMap<String, Tarefa> recuperarTarefas() {
-        return null;
+        return (HashMap<String, Tarefa>) this.tarefasCadastradas.clone();
     }
 
     @Override
     public Tarefa recuperarTarefa(String idTarefa) {
-        return null;
+        return this.tarefasCadastradas.get(idTarefa);
     }
 
     @Override
     public List<Tarefa> buscarTarefas(String titulo) {
-        return null;
+        return this.tarefasCadastradas.values().stream().filter(tarefa -> tarefa.getTitulo().equals(titulo)).toList();
     }
 
     @Override
     public Boolean adicionarTarefa(Tarefa tarefa) {
-        return null;
+        this.tarefasCadastradas.put(tarefa.getId(), tarefa);
+        return true;
     }
 
     @Override
     public Boolean atualizarTarefa(Tarefa tarefa) {
-        return null;
+        this.tarefasCadastradas.put(tarefa.getId(), tarefa);
+        return true;
     }
 
     @Override
     public Boolean removerTarefa(String idTarefa) {
-        return null;
+        this.tarefasCadastradas.remove(idTarefa);
+        return true;
     }
 
     @Override
     public Integer contarTarefas() {
-        return null;
+        return this.tarefasCadastradas.keySet().size();
     }
 }

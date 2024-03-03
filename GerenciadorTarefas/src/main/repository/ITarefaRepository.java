@@ -21,5 +21,4 @@ public abstract class ITarefaRepository {
 
     public abstract Integer contarTarefas();
 
-
 }
