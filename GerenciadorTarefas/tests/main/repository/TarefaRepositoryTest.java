@@ -64,7 +64,7 @@ class TarefaRepositoryTest {
     @Test
     void atualizarTarefaTeste() {
         this.tarefaTeste.setDescricao("Nova Descrição");
-        Boolean tarefa =  this.tarefaRepository.atualizarTarefa(tarefaTeste);
+        Boolean tarefa = this.tarefaRepository.atualizarTarefa(tarefaTeste);
         assertTrue(tarefa);
 
         HashMap<String, Tarefa> tarefas =  this.tarefaRepository.recuperarTarefas();
@@ -77,6 +77,12 @@ class TarefaRepositoryTest {
 
     @Test
     void removerTarefaTeste() {
-        Tarefa tarefa =  this.tarefaRepository.removerTarefa();
+        Boolean tarefaRemovida =  this.tarefaRepository.removerTarefa(tarefaTeste.getId());
+        assertTrue(tarefaRemovida);
+
+        HashMap<String, Tarefa> tarefas =  this.tarefaRepository.recuperarTarefas();
+        Integer contagem = tarefas.size();
+        assertEquals(contagem, 2);
+
     }
 }
