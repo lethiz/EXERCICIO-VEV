@@ -7,6 +7,7 @@ import main.exceptions.Model.InvalidDataVencimentoException;
 import main.exceptions.Model.InvalidDescricaoException;
 import main.exceptions.Model.InvalidPrioridadeException;
 import main.exceptions.Model.InvalidTituloException;
+import main.util.CheckInvalids;
 import main.util.TarefaPrioridade;
 
 public class Tarefa {
@@ -17,13 +18,15 @@ public class Tarefa {
     private String dataVencimento;
     private TarefaPrioridade prioridade;
 
+    private final CheckInvalids checkInvalids = new CheckInvalids();
+
     public Tarefa(String titulo, String descricao, String dataVencimento, TarefaPrioridade prioridade) throws InvalidTituloException, InvalidDescricaoException, InvalidDataVencimentoException, InvalidPrioridadeException {
         this.id = UUID.randomUUID().toString();
 
-        this.checkTitulo(titulo);
-        this.checkDescricao(descricao);
-        this.checkDataVencimento(dataVencimento);
-        this.checkPrioridade(prioridade);
+        checkInvalids.checkTitulo(titulo);
+        checkInvalids.checkDescricao(descricao);
+        checkInvalids.checkDataVencimento(dataVencimento);
+        checkInvalids.checkPrioridade(prioridade);
 
         this.titulo = titulo;
         this.descricao = descricao;
@@ -42,7 +45,7 @@ public class Tarefa {
     }
 
     public void setTitulo(String tituloNovo) throws InvalidTituloException {
-        this.checkTitulo(tituloNovo);
+        checkInvalids.checkTitulo(tituloNovo);
         this.titulo = tituloNovo;
     }
 
@@ -51,7 +54,7 @@ public class Tarefa {
     }
 
     public void setDescricao(String descricaoNova) throws InvalidDescricaoException {
-        this.checkDescricao(descricaoNova);
+        checkInvalids.checkDescricao(descricaoNova);
         this.descricao = descricaoNova;
     }
 
@@ -60,7 +63,7 @@ public class Tarefa {
     }
 
     public void setDataVencimento(String dataVencimentoNova) throws InvalidDataVencimentoException {
-        this.checkDataVencimento(dataVencimentoNova);
+        checkInvalids.checkDataVencimento(dataVencimentoNova);
         this.dataVencimento = dataVencimentoNova;
     }
 
@@ -69,34 +72,8 @@ public class Tarefa {
     }
 
     public void setPrioridade(TarefaPrioridade prioridadeNova) throws InvalidPrioridadeException {
-        this.checkPrioridade(prioridade);
+        checkInvalids.checkPrioridade(prioridade);
         this.prioridade = prioridadeNova;
-    }
-
-    private void checkTitulo(String titulo) throws InvalidTituloException {
-        if(titulo == null) throw new InvalidTituloException("Título inválido: não pode ser nulo.");
-        if(titulo.isBlank()) throw new InvalidTituloException("Título inválido: não pode estar em branco.");
-        if(titulo.isEmpty()) throw new InvalidTituloException("Título inválido: não pode ser vazio.");
-
-    }
-
-    private void checkDescricao(String descricao) throws InvalidDescricaoException {
-        if(descricao == null) throw new InvalidDescricaoException("Descrição inválida: não pode ser nula.");
-        if(descricao.isBlank()) throw new InvalidDescricaoException("Descrição inválida: não pode estar em branco.");
-        if(descricao.isEmpty()) throw new InvalidDescricaoException("Descrição inválida: não pode ser vazia.");
-
-    }
-
-    private void checkDataVencimento(String dataVencimento) throws InvalidDataVencimentoException {
-        if(dataVencimento == null) throw new InvalidDataVencimentoException("Data de Vencimento inválida: não pode ser nula.");
-        if(dataVencimento.isBlank()) throw new InvalidDataVencimentoException("Data de Vencimento inválida: não pode estar em branco.");
-        if(dataVencimento.isEmpty()) throw new InvalidDataVencimentoException("Data de Vencimento inválida: não pode ser vazia.");
-
-    }
-
-    private void checkPrioridade(TarefaPrioridade prioridade) throws InvalidPrioridadeException {
-        if(prioridade == null) throw new InvalidPrioridadeException("Prioridade inválida: não pode ser nula.");
-
     }
 
     @Override
