@@ -1,5 +1,9 @@
 package main.repository;
 
+import main.exceptions.Model.InvalidDataVencimentoException;
+import main.exceptions.Model.InvalidDescricaoException;
+import main.exceptions.Model.InvalidPrioridadeException;
+import main.exceptions.Model.InvalidTituloException;
 import main.models.Tarefa;
 import main.util.TarefaPrioridade;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +21,7 @@ class TarefaRepositoryTest {
     private ITarefaRepository tarefaRepository;
 
     @BeforeEach
-    public void prepararTest(){
+    public void prepararTest() throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDescricaoException, InvalidTituloException {
         this.tarefaRepository = new TarefaRepository();
         this.tarefaTeste = new Tarefa("Título Testagem", "Descrição Testagem", "23/09/2024", TarefaPrioridade.PRIORIDADE_ALTA);
         this.tarefaTesteOutra = new Tarefa("Título Outra Testagem", "Descrição Outra Testagem", "25/09/2024", TarefaPrioridade.PRIORIDADE_MEDIA);
@@ -51,7 +55,7 @@ class TarefaRepositoryTest {
     }
 
     @Test
-    void adicionarTarefaTeste() {
+    void adicionarTarefaTeste() throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDescricaoException, InvalidTituloException {
         Tarefa tarefaCriada = new Tarefa("Título Criada", "Descrição Criada", "26/09/2024", TarefaPrioridade.PRIORIDADE_BAIXA);
         Boolean tarefa =  this.tarefaRepository.adicionarTarefa(tarefaCriada);
         assertTrue(tarefa);
@@ -62,7 +66,7 @@ class TarefaRepositoryTest {
     }
 
     @Test
-    void atualizarTarefaTeste() {
+    void atualizarTarefaTeste() throws InvalidDescricaoException {
         this.tarefaTeste.setDescricao("Nova Descrição");
         Boolean tarefa = this.tarefaRepository.atualizarTarefa(tarefaTeste);
         assertTrue(tarefa);
