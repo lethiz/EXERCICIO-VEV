@@ -75,10 +75,16 @@ public class TarefaService implements ITarefaService{
         return tarefaRecuperada;
     }
 
-    @Override
     public Tarefa recuperarTarefa(String idTarefa) throws InvalidIDException, InvalidTarefaException {
-        return null;
+        checkInvalids.checkId(idTarefa);
+
+        Tarefa tarefaRecuperada = tarefasRepository.recuperarTarefa(idTarefa);
+
+        checkInvalids.checkTarefa(tarefaRecuperada, "recuperar");
+
+        return tarefaRecuperada;
     }
+
 
     @Override
     public Tarefa criarTarefa(String titulo, String descricao, String dataVencimento, TarefaPrioridade prioridade) throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDescricaoException, InvalidTituloException, InvalidDataVencimentoFormatException {
