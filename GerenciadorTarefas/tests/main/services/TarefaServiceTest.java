@@ -197,5 +197,69 @@ public class TarefaServiceTest {
         });
     }
 
+    @Test
+    void atualizarTarefaTeste() throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDataVencimentoFormatException, InvalidDescricaoException, InvalidIDException, InvalidTituloException {
+        List<Tarefa> tarefasBuscadas = this.tarefaService.buscarTarefas();
+        assertEquals(3, tarefasBuscadas.size());
+
+        tarefaTeste.setPrioridade(TarefaPrioridade.PRIORIDADE_BAIXA);
+
+        Tarefa tarefaAtualizada = this.tarefaService.atualizarTarefa(tarefaTeste);
+        assertEquals(tarefaAtualizada.getPrioridade(), TarefaPrioridade.PRIORIDADE_BAIXA);
+
+
+        tarefasBuscadas = this.tarefaService.buscarTarefas();
+        assertEquals(3, tarefasBuscadas.size());
+    }
+
+    @Test
+    void atualizarTarefaInvalidaTeste(){
+        assertThrows(InvalidPrioridadeException.class, () -> {
+            tarefaTeste.setPrioridade(null);
+            this.tarefaService.atualizarTarefa(tarefaTeste);
+        });
+        assertThrows(InvalidDataVencimentoException.class, () -> {
+            tarefaTeste.setDataVencimento(null);
+            this.tarefaService.atualizarTarefa(tarefaTeste);
+        });
+        assertThrows(InvalidDataVencimentoException.class, () -> {
+            tarefaTeste.setDataVencimento("    ");
+            this.tarefaService.atualizarTarefa(tarefaTeste);
+        });
+        assertThrows(InvalidDataVencimentoException.class, () -> {
+            tarefaTeste.setDataVencimento("");
+            this.tarefaService.atualizarTarefa(tarefaTeste);
+        });
+        assertThrows(InvalidDataVencimentoFormatException.class, () -> {
+            tarefaTeste.setDataVencimento("22 de Dezembro d 2024");
+            this.tarefaService.atualizarTarefa(tarefaTeste);
+        });
+
+        assertThrows(InvalidDescricaoException.class, () -> {
+            tarefaTeste.setDescricao(null);
+            this.tarefaService.atualizarTarefa(tarefaTeste);
+        });
+        assertThrows(InvalidDescricaoException.class, () -> {
+            tarefaTeste.setDescricao("   ");
+            this.tarefaService.atualizarTarefa(tarefaTeste);
+        });
+        assertThrows(InvalidDescricaoException.class, () -> {
+            tarefaTeste.setDescricao("");
+            this.tarefaService.atualizarTarefa(tarefaTeste);
+        });
+        assertThrows(InvalidTituloException.class, () -> {
+            tarefaTeste.setTitulo(null);
+            this.tarefaService.atualizarTarefa(tarefaTeste);
+        });
+        assertThrows(InvalidTituloException.class, () -> {
+            tarefaTeste.setTitulo("     ");
+            this.tarefaService.atualizarTarefa(tarefaTeste);
+        });
+        assertThrows(InvalidTituloException.class, () -> {
+            tarefaTeste.setTitulo("");
+            this.tarefaService.atualizarTarefa(tarefaTeste);
+        });
+    }
+
 
 }
