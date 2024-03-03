@@ -52,7 +52,13 @@ class TarefaRepositoryTest {
 
     @Test
     void adicionarTarefaTeste() {
-        Tarefa tarefa =  this.tarefaRepository.adicionarTarefa();
+        Tarefa tarefaCriada = new Tarefa("Título Criada", "Descrição Criada", "26/09/2024", TarefaPrioridade.PRIORIDADE_BAIXA);
+        Boolean tarefa =  this.tarefaRepository.adicionarTarefa(tarefaCriada);
+        assertTrue(tarefa);
+
+        HashMap<String, Tarefa> tarefas =  this.tarefaRepository.recuperarTarefas();
+        Integer contagem = tarefas.size();
+        assertEquals(contagem, 3);
     }
 
     @Test
