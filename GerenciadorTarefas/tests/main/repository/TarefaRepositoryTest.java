@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,11 +39,15 @@ class TarefaRepositoryTest {
         assertEquals("Descrição Testagem", tarefaRecuperada.getDescricao());
         assertEquals("23/09/2024", tarefaRecuperada.getDataVencimento());
         assertEquals(TarefaPrioridade.PRIORIDADE_ALTA, tarefaRecuperada.getPrioridade());
+        assertEquals(tarefaTeste, tarefaRecuperada);
     }
 
     @Test
-    void buscarTarefaTeste() {
-        Tarefa tarefa =  this.tarefaRepository.buscarTarefa("Título Testagem");
+    void buscarTarefasTeste() {
+        List<Tarefa> tarefasBuscadas =  this.tarefaRepository.buscarTarefas("Título Testagem");
+        assertEquals(1, tarefasBuscadas.size());
+        assertEquals(tarefaTeste, tarefasBuscadas.getFirst());
+        assertEquals("Título Testagem", tarefasBuscadas.getFirst().getTitulo());
     }
 
     @Test
