@@ -85,12 +85,18 @@ public class TarefaService implements ITarefaService{
         return tarefaRecuperada;
     }
 
-
-    @Override
     public Tarefa criarTarefa(String titulo, String descricao, String dataVencimento, TarefaPrioridade prioridade) throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDescricaoException, InvalidTituloException, InvalidDataVencimentoFormatException {
-        return null;
-    }
+        Tarefa tarefaNova = new Tarefa(titulo, descricao, dataVencimento, prioridade);
 
+        checkInvalids.checkTitulo(tarefaNova.getTitulo());
+        checkInvalids.checkDescricao(tarefaNova.getDescricao());
+        checkInvalids.checkDataVencimento(tarefaNova.getDataVencimento());
+        checkInvalids.checkPrioridade(tarefaNova.getPrioridade());
+
+        Tarefa tarefaCriada = tarefasRepository.adicionarTarefa(tarefaNova);
+
+        return tarefaCriada;
+    }
     @Override
     public Tarefa atualizarTarefa(Tarefa tarefa) throws InvalidIDException, InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDescricaoException, InvalidTituloException, InvalidDataVencimentoFormatException {
         return null;
