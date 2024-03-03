@@ -112,8 +112,15 @@ public class TarefaService implements ITarefaService{
         return tarefaAtualizada;
     }
 
-    @Override
     public Boolean removerTarefa(String idTarefa) throws InvalidIDException, InvalidTarefaException {
-        return null;
+        checkInvalids.checkId(idTarefa);
+
+        Tarefa tarefaRecuperada = tarefasRepository.recuperarTarefa(idTarefa);
+
+        checkInvalids.checkTarefa(tarefaRecuperada, "remover");
+
+        tarefasRepository.removerTarefa(idTarefa);
+
+        return true;
     }
 }
