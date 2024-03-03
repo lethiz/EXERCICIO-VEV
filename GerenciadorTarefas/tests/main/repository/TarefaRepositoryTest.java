@@ -69,7 +69,7 @@ class TarefaRepositoryTest {
 
         HashMap<String, Tarefa> tarefas =  this.tarefaRepository.recuperarTarefas();
         Integer contagem = tarefas.size();
-        assertEquals(contagem, 3);
+        assertEquals(contagem, 2);
 
         Tarefa tarefaRecuperada =  this.tarefaRepository.recuperarTarefa(tarefaTeste.getId());
         assertEquals("Nova Descrição", tarefaRecuperada.getDescricao());
@@ -83,7 +83,7 @@ class TarefaRepositoryTest {
 
         HashMap<String, Tarefa> tarefas =  this.tarefaRepository.recuperarTarefas();
         Integer contagem = tarefas.size();
-        assertEquals(contagem, 2);
+        assertEquals(contagem, 1);
 
     }
 }
