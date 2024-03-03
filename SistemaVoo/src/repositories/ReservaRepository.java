@@ -4,6 +4,7 @@ import models.Reserva;
 import models.Voo;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class ReservaRepository {
 
@@ -32,6 +33,10 @@ public class ReservaRepository {
         } catch (Exception e){
             return e.toString();
         }
+    }
+
+    public void removerReserva(UUID reservaId) {
+        this.reservas.removeIf(reserva -> reserva.getId().equals(reservaId));
     }
 
 
