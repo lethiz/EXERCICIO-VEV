@@ -6,6 +6,7 @@ import main.exceptions.Service.InvalidComparacaoException;
 import main.exceptions.Service.InvalidTarefaException;
 import main.models.Tarefa;
 import main.repository.ITarefaRepository;
+import main.repository.TarefaRepository;
 import main.util.CheckInvalids;
 import main.util.DataVencimentoComparator;
 import main.util.TarefaPrioridade;
@@ -20,6 +21,10 @@ public class TarefaService implements ITarefaService{
     private ITarefaRepository tarefasRepository;
 
     private final CheckInvalids checkInvalids = new CheckInvalids();
+
+    public TarefaService() {
+        this.tarefasRepository = new TarefaRepository();
+    }
 
     public List<Tarefa> buscarTarefas()  {
         return tarefasRepository.recuperarTarefas().values().stream().toList();
@@ -52,17 +57,18 @@ public class TarefaService implements ITarefaService{
     public  List<Tarefa> buscarTarefasPrioridade()  {
         List<Tarefa> tarefaRecuperadas = this.buscarTarefas();
 
-        return tarefaRecuperadas.stream().sorted(new DataVencimentoComparator()).toList();
+        return tarefaRecuperadas.stream().sorted(Comparator.comparing(Tarefa::getPrioridade)).toList();
     }
 
     public  List<Tarefa> buscarTarefasDataVencimento()  {
         List<Tarefa> tarefaRecuperadas = this.buscarTarefas();
 
-        return tarefaRecuperadas.stream().sorted(Comparator.comparing(Tarefa::getPrioridade)).toList();
+        return tarefaRecuperadas.stream().sorted(new DataVencimentoComparator()).toList();
     }
 
     public Tarefa marcarPrioridade(String idTarefa, TarefaPrioridade tarefaPrioridade) throws InvalidIDException, InvalidTarefaException, InvalidPrioridadeException {
         checkInvalids.checkId(idTarefa);
+        checkInvalids.checkPrioridade(tarefaPrioridade);
 
         Tarefa tarefaRecuperada = tarefasRepository.recuperarTarefa(idTarefa);
 

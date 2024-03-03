@@ -9,7 +9,10 @@ import main.util.TarefaPrioridade;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,7 +36,10 @@ public class TarefaServiceTest {
         assertEquals(3, tarefasBuscadas.size());
 
         Tarefa[] tarefasTarget = {tarefaTeste, tarefaTesteOutra, tarefaTesteFinal};
-        assertArrayEquals(tarefasBuscadas.toArray(), tarefasTarget);
+        Set<Tarefa> expectedSet = new HashSet<>(Arrays.asList(tarefasTarget));
+        Set<Tarefa> actualSet = new HashSet<>(tarefasBuscadas);
+
+        assertEquals(expectedSet, actualSet);
     }
 
     @Test
@@ -42,11 +48,14 @@ public class TarefaServiceTest {
         assertEquals(3, tarefasBuscadas.size());
 
         Tarefa[] tarefasTarget = {tarefaTeste, tarefaTesteOutra, tarefaTesteFinal};
-        assertArrayEquals(tarefasBuscadas.toArray(), tarefasTarget);
+        Set<Tarefa> expectedSet = new HashSet<>(Arrays.asList(tarefasTarget));
+        Set<Tarefa> actualSet = new HashSet<>(tarefasBuscadas);
+
+        assertEquals(expectedSet, actualSet);
 
         assertEquals(tarefasBuscadas.get(0), tarefaTeste);
-        assertEquals(tarefasBuscadas.get(1), tarefaTesteOutra);
-        assertEquals(tarefasBuscadas.get(2), tarefaTesteFinal);
+        assertEquals(tarefasBuscadas.get(1), tarefaTesteFinal);
+        assertEquals(tarefasBuscadas.get(2), tarefaTesteOutra);
     }
 
     @Test
@@ -55,7 +64,11 @@ public class TarefaServiceTest {
         assertEquals(3, tarefasBuscadas.size());
 
         Tarefa[] tarefasTarget = {tarefaTeste, tarefaTesteOutra, tarefaTesteFinal};
-        assertArrayEquals(tarefasBuscadas.toArray(), tarefasTarget);
+        Set<Tarefa> expectedSet = new HashSet<>(Arrays.asList(tarefasTarget));
+        Set<Tarefa> actualSet = new HashSet<>(tarefasBuscadas);
+
+        assertEquals(expectedSet, actualSet);
+
 
         assertEquals(tarefasBuscadas.get(0), tarefaTeste);
         assertEquals(tarefasBuscadas.get(1), tarefaTesteFinal);
@@ -67,10 +80,14 @@ public class TarefaServiceTest {
         assertEquals(3, tarefasBuscadas.size());
 
         Tarefa[] tarefasTarget = {tarefaTeste, tarefaTesteOutra, tarefaTesteFinal};
-        assertArrayEquals(tarefasBuscadas.toArray(), tarefasTarget);
+        Set<Tarefa> expectedSet = new HashSet<>(Arrays.asList(tarefasTarget));
+        Set<Tarefa> actualSet = new HashSet<>(tarefasBuscadas);
 
-        assertEquals(tarefasBuscadas.get(0),tarefaTesteOutra);
-        assertEquals(tarefasBuscadas.get(1), tarefaTeste);
+        assertEquals(expectedSet, actualSet);
+
+
+        assertEquals(tarefasBuscadas.get(0),tarefaTeste);
+        assertEquals(tarefasBuscadas.get(1), tarefaTesteFinal);
         assertEquals(tarefasBuscadas.get(2), tarefaTesteOutra);
     }
 
@@ -87,7 +104,10 @@ public class TarefaServiceTest {
         assertEquals(3, tarefasBuscadas.size());
 
         Tarefa[] tarefasTarget = {tarefaTeste, tarefaTesteOutra, tarefaTesteFinal};
-        assertArrayEquals(tarefasBuscadas.toArray(), tarefasTarget);
+        Set<Tarefa> expectedSet = new HashSet<>(Arrays.asList(tarefasTarget));
+        Set<Tarefa> actualSet = new HashSet<>(tarefasBuscadas);
+
+        assertEquals(expectedSet, actualSet);
 
         assertEquals(tarefasBuscadas.get(0).getPrioridade(), TarefaPrioridade.PRIORIDADE_ALTA);
         assertEquals(tarefasBuscadas.get(2).getPrioridade(), TarefaPrioridade.PRIORIDADE_MEDIA);
@@ -99,7 +119,10 @@ public class TarefaServiceTest {
         assertEquals(3, tarefasBuscadas.size());
 
         Tarefa[] tarefasTarget = {tarefaTeste, tarefaTesteOutra, tarefaTesteFinal};
-        assertArrayEquals(tarefasBuscadas.toArray(), tarefasTarget);
+        Set<Tarefa> expectedSet = new HashSet<>(Arrays.asList(tarefasTarget));
+        Set<Tarefa> actualSet = new HashSet<>(tarefasBuscadas);
+
+        assertEquals(expectedSet, actualSet);
 
         assertEquals(tarefasBuscadas.get(0).getDataVencimento(), "23/09/2024");
         assertEquals(tarefasBuscadas.get(2).getDataVencimento(),"25/09/2024");
@@ -276,7 +299,7 @@ public class TarefaServiceTest {
     @Test
     void removerTarefaIdInvalidoTeste(){
         assertThrows(InvalidIDException.class, () -> {
-            this.tarefaService.removerTarefa(tarefaTeste.getId());
+            this.tarefaService.removerTarefa(null);
         });
     }
 

@@ -6,10 +6,7 @@ import main.util.TarefaPrioridade;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,7 +38,10 @@ class TarefaRepositoryTest {
         assertEquals(contagem, 2);
 
         Tarefa[] tarefasTarget = {tarefaTeste, tarefaTesteOutra};
-        assertArrayEquals(tarefasRecuperadas.values().toArray(), tarefasTarget);
+        Set<Tarefa> expectedSet = new HashSet<>(Arrays.asList(tarefasTarget));
+        Set<Tarefa> actualSet = new HashSet<>(tarefasRecuperadas.values());
+
+        assertEquals(expectedSet, actualSet);
     }
 
     @Test
@@ -61,9 +61,6 @@ class TarefaRepositoryTest {
         assertEquals(1, tarefasBuscadas.size());
         assertEquals(tarefaTeste, tarefasBuscadas.getFirst());
         assertEquals("Título Testagem", tarefasBuscadas.getFirst().getTitulo());
-
-        Tarefa[] tarefasTarget = {tarefaTeste, tarefaTesteOutra};
-        assertArrayEquals(tarefasBuscadas.toArray(), tarefasTarget);
     }
 
     @Test
@@ -74,8 +71,8 @@ class TarefaRepositoryTest {
         Tarefa tarefaCriada = new Tarefa("Título Criada", "Descrição Criada", "26/09/2024", TarefaPrioridade.PRIORIDADE_BAIXA);
 
         Tarefa tarefaAdicionada =  this.tarefaRepository.adicionarTarefa(tarefaCriada);
-        assertEquals("Título Criado", tarefaAdicionada.getTitulo());
-        assertEquals("Descrição Criação", tarefaAdicionada.getDescricao());
+        assertEquals("Título Criada", tarefaAdicionada.getTitulo());
+        assertEquals("Descrição Criada", tarefaAdicionada.getDescricao());
         assertEquals("26/09/2024", tarefaAdicionada.getDataVencimento());
         assertEquals(TarefaPrioridade.PRIORIDADE_BAIXA, tarefaAdicionada.getPrioridade());
 
@@ -109,7 +106,7 @@ class TarefaRepositoryTest {
         assertTrue(status);
 
         contagem =  this.tarefaRepository.contarTarefas();
-        assertEquals(contagem, 2);
+        assertEquals(contagem, 1);
     }
 
 }
