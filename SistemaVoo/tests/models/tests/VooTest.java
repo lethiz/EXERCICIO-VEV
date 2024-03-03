@@ -25,12 +25,6 @@ public class VooTest {
     }
 
     @Test
-    public void testCriarVooConstrutorVazio() {
-        Voo vooConstrutorVazio = new Voo();
-        assertNotNull(vooConstrutorVazio);
-    }
-
-    @Test
     public void testGetId() {
         assertEquals(vooId, novoVoo.getID());
     }

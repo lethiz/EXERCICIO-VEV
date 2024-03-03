@@ -31,6 +31,12 @@ public class VooRepositoryTest {
     }
 
     @Test
+    public void checkRepositorioConstrutorVazio() {
+        VooRepository novoVooRepository = new VooRepository();
+        assertNotNull(novoVooRepository);
+    }
+
+    @Test
     public void checkTotalVoosCadastrados() {
         assertEquals(0, vooRepository.getTotalVoosCadastrados());
     }
