@@ -1,9 +1,11 @@
 package main.models;
 
+import java.util.UUID;
 import main.util.TarefaPrioridade;
 
 public class Tarefa {
 
+    private final String id = UUID.randomUUID().toString();
     private String titulo;
     private String descricao;
     private String dataVencimento;
@@ -16,6 +18,9 @@ public class Tarefa {
         this.prioridade = prioridade;
     }
 
+    public String getId() {
+        return this.id;
+    }
 
     public String getTitulo() {
         return this.titulo;
@@ -48,4 +53,6 @@ public class Tarefa {
     public void setPrioridade(TarefaPrioridade prioridadeNova) {
         this.prioridade = prioridadeNova;
     }
+
+
 }

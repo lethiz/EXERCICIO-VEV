@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TarefaTest {
 
-    Tarefa tarefaTeste;
+    private Tarefa tarefaTeste;
 
     @BeforeEach
     public void prepararTest(){
