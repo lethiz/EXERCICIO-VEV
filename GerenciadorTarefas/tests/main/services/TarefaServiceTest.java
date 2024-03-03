@@ -261,5 +261,23 @@ public class TarefaServiceTest {
         });
     }
 
+    @Test
+    void removerTarefaTeste() throws InvalidIDException, InvalidTarefaException {
+        List<Tarefa> tarefasBuscadas = this.tarefaService.buscarTarefas();
+        assertEquals(3, tarefasBuscadas.size());
+
+        Boolean status = this.tarefaService.removerTarefa(tarefaTeste.getId());
+        assertTrue(status);
+
+        tarefasBuscadas = this.tarefaService.buscarTarefas();
+        assertEquals(2, tarefasBuscadas.size());
+    }
+
+    @Test
+    void removerTarefaIdInvalidoTeste(){
+        assertThrows(InvalidIDException.class, () -> {
+            this.tarefaService.removerTarefa(tarefaTeste.getId());
+        });
+    }
 
 }
