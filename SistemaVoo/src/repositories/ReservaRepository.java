@@ -16,7 +16,9 @@ public class ReservaRepository {
         this.vooRepository = new VooRepository();
     }
 
-
+    public int getTotalReservas() {
+        return 0;
+    }
 
 
 }

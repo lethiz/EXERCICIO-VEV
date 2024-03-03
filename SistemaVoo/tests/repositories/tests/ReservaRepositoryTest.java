@@ -25,13 +25,13 @@ public class ReservaRepositoryTest {
 
     @Test
     public void checkReservaRepositorySize() {
-        assertEquals(0, reservaRepository.getTotalReservas());
+        ReservaRepository novoReservaRepository = new ReservaRepository();
+        assertEquals(0, novoReservaRepository.getTotalReservas());
     }
 
-    /*@Test
+    @Test
     public void checkCriarReserva() {
         Reserva reserva = new Reserva("Clay", "83999991334", vooId, 3, 2302 * 3);
         reservaRepository.criarReserva(reserva);
-
-    }*/
+    }
 }
