@@ -63,7 +63,16 @@ class TarefaRepositoryTest {
 
     @Test
     void atualizarTarefaTeste() {
-        Tarefa tarefa =  this.tarefaRepository.atualizarTarefa();
+        this.tarefaTeste.setDescricao("Nova Descrição");
+        Boolean tarefa =  this.tarefaRepository.atualizarTarefa(tarefaTeste);
+        assertTrue(tarefa);
+
+        HashMap<String, Tarefa> tarefas =  this.tarefaRepository.recuperarTarefas();
+        Integer contagem = tarefas.size();
+        assertEquals(contagem, 3);
+
+        Tarefa tarefaRecuperada =  this.tarefaRepository.recuperarTarefa(tarefaTeste.getId());
+        assertEquals("Nova Descrição", tarefaRecuperada.getTitulo());
     }
 
     @Test
