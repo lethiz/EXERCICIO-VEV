@@ -79,4 +79,28 @@ public class TarefaServiceTest {
         });
     }
 
+    @Test
+    void buscarTarefasPrioridadeTeste() {
+        List<Tarefa> tarefasBuscadas = this.tarefaService.buscarTarefasPrioridade();
+        assertEquals(3, tarefasBuscadas.size());
+
+        Tarefa[] tarefasTarget = {tarefaTeste, tarefaTesteOutra, tarefaTesteFinal};
+        assertArrayEquals(tarefasBuscadas.toArray(), tarefasTarget);
+
+        assertEquals(tarefasBuscadas.get(0).getPrioridade(), TarefaPrioridade.PRIORIDADE_ALTA);
+        assertEquals(tarefasBuscadas.get(2).getPrioridade(), TarefaPrioridade.PRIORIDADE_MEDIA);
+    }
+
+    @Test
+    void buscarTarefasDataVencimentoTeste() {
+        List<Tarefa> tarefasBuscadas = this.tarefaService.buscarTarefasDataVencimento();
+        assertEquals(3, tarefasBuscadas.size());
+
+        Tarefa[] tarefasTarget = {tarefaTeste, tarefaTesteOutra, tarefaTesteFinal};
+        assertArrayEquals(tarefasBuscadas.toArray(), tarefasTarget);
+
+        assertEquals(tarefasBuscadas.get(0).getDataVencimento(), "23/09/2024");
+        assertEquals(tarefasBuscadas.get(2).getDataVencimento(),"25/09/2024");
+    }
+
 }
