@@ -17,6 +17,7 @@ public class VooRepository {
         this.voos = voos;
     }
 
+
     public int getTotalVoosCadastrados() {
         return this.voos.size();
     }

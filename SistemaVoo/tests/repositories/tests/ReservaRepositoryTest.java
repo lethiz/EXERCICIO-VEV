@@ -8,8 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class ReservaRepositoryTest {
 
     @Test
-    public static void ReservaRepositoryTest() {
+    public void ReservaRepositoryTest() {
         ReservaRepository reservaRepository = new ReservaRepository();
         assertNotNull(reservaRepository);
     }
+
+
 }
