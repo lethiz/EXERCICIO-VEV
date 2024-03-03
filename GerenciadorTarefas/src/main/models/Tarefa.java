@@ -2,6 +2,11 @@ package main.models;
 
 import java.util.Objects;
 import java.util.UUID;
+
+import main.exceptions.Model.InvalidDataVencimentoException;
+import main.exceptions.Model.InvalidDescricaoException;
+import main.exceptions.Model.InvalidPrioridadeException;
+import main.exceptions.Model.InvalidTituloException;
 import main.util.TarefaPrioridade;
 
 public class Tarefa {
@@ -12,12 +17,20 @@ public class Tarefa {
     private String dataVencimento;
     private TarefaPrioridade prioridade;
 
-    public Tarefa(String titulo, String descricao, String dataVencimento, TarefaPrioridade prioridade) {
+    public Tarefa(String titulo, String descricao, String dataVencimento, TarefaPrioridade prioridade) throws InvalidTituloException, InvalidDescricaoException, InvalidDataVencimentoException, InvalidPrioridadeException {
         this.id = UUID.randomUUID().toString();
+
+        this.checkTitulo(titulo);
+        this.checkDescricao(descricao);
+        this.checkDataVencimento(dataVencimento);
+        this.checkPrioridade(prioridade);
+
         this.titulo = titulo;
         this.descricao = descricao;
         this.dataVencimento = dataVencimento;
         this.prioridade = prioridade;
+
+
     }
 
     public String getId() {
@@ -28,7 +41,8 @@ public class Tarefa {
         return this.titulo;
     }
 
-    public void setTitulo(String tituloNovo) {
+    public void setTitulo(String tituloNovo) throws InvalidTituloException {
+        this.checkTitulo(tituloNovo);
         this.titulo = tituloNovo;
     }
 
@@ -36,7 +50,8 @@ public class Tarefa {
         return this.descricao;
     }
 
-    public void setDescricao(String descricaoNova) {
+    public void setDescricao(String descricaoNova) throws InvalidDescricaoException {
+        this.checkDescricao(descricaoNova);
         this.descricao = descricaoNova;
     }
 
@@ -44,7 +59,8 @@ public class Tarefa {
         return this.dataVencimento;
     }
 
-    public void setDataVencimento(String dataVencimentoNova) {
+    public void setDataVencimento(String dataVencimentoNova) throws InvalidDataVencimentoException {
+        this.checkDataVencimento(dataVencimentoNova);
         this.dataVencimento = dataVencimentoNova;
     }
 
@@ -52,10 +68,36 @@ public class Tarefa {
         return this.prioridade;
     }
 
-    public void setPrioridade(TarefaPrioridade prioridadeNova) {
+    public void setPrioridade(TarefaPrioridade prioridadeNova) throws InvalidPrioridadeException {
+        this.checkPrioridade(prioridade);
         this.prioridade = prioridadeNova;
     }
 
+    private void checkTitulo(String titulo) throws InvalidTituloException {
+        if(titulo == null) throw new InvalidTituloException("Título inválido: não pode ser nulo.");
+        if(titulo.isBlank()) throw new InvalidTituloException("Título inválido: não pode estar em branco.");
+        if(titulo.isEmpty()) throw new InvalidTituloException("Título inválido: não pode ser vazio.");
+
+    }
+
+    private void checkDescricao(String descricao) throws InvalidDescricaoException {
+        if(descricao == null) throw new InvalidDescricaoException("Descrição inválida: não pode ser nula.");
+        if(descricao.isBlank()) throw new InvalidDescricaoException("Descrição inválida: não pode estar em branco.");
+        if(descricao.isEmpty()) throw new InvalidDescricaoException("Descrição inválida: não pode ser vazia.");
+
+    }
+
+    private void checkDataVencimento(String dataVencimento) throws InvalidDataVencimentoException {
+        if(dataVencimento == null) throw new InvalidDataVencimentoException("Data de Vencimento inválida: não pode ser nula.");
+        if(dataVencimento.isBlank()) throw new InvalidDataVencimentoException("Data de Vencimento inválida: não pode estar em branco.");
+        if(dataVencimento.isEmpty()) throw new InvalidDataVencimentoException("Data de Vencimento inválida: não pode ser vazia.");
+
+    }
+
+    private void checkPrioridade(TarefaPrioridade prioridade) throws InvalidPrioridadeException {
+        if(prioridade == null) throw new InvalidPrioridadeException("Prioridade inválida: não pode ser nula.");
+
+    }
 
     @Override
     public boolean equals(Object o) {
