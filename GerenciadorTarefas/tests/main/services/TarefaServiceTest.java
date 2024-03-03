@@ -145,4 +145,57 @@ public class TarefaServiceTest {
 
     }
 
+    @Test
+    void criarTarefaTeste() throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDataVencimentoFormatException, InvalidDescricaoException, InvalidTituloException {
+        List<Tarefa> tarefasBuscadas = this.tarefaService.buscarTarefas();
+        assertEquals(3, tarefasBuscadas.size());
+
+
+        Tarefa tarefaCriada = this.tarefaService.criarTarefa("Título Criada", "Descrição Criada", "23/09/2024", TarefaPrioridade.PRIORIDADE_BAIXA);
+
+        tarefasBuscadas = this.tarefaService.buscarTarefas();
+        assertEquals(4, tarefasBuscadas.size());
+
+    }
+
+    @Test
+    void criarTarefaInvalidaTeste(){
+        assertThrows(InvalidPrioridadeException.class, () -> {
+            this.tarefaService.criarTarefa("Título Criada", "Descrição Criada", "23/09/2024", null);
+        });
+        assertThrows(InvalidDataVencimentoException.class, () -> {
+            this.tarefaService.criarTarefa("Título Criada", "Descrição Criada", null, TarefaPrioridade.PRIORIDADE_ALTA);
+        });
+        assertThrows(InvalidDataVencimentoException.class, () -> {
+            this.tarefaService.criarTarefa("Título Criada", "Descrição Criada", "", TarefaPrioridade.PRIORIDADE_ALTA);
+
+        });
+        assertThrows(InvalidDataVencimentoException.class, () -> {
+            this.tarefaService.criarTarefa("Título Criada", "Descrição Criada", "      ", TarefaPrioridade.PRIORIDADE_ALTA);
+
+        });
+        assertThrows(InvalidDataVencimentoFormatException.class, () -> {
+            this.tarefaService.criarTarefa("Título Criada", "Descrição Criada", "23-09-2024", TarefaPrioridade.PRIORIDADE_ALTA);
+        });
+        assertThrows(InvalidDescricaoException.class, () -> {
+            this.tarefaService.criarTarefa("Título Criada", null, "23/09/2024", TarefaPrioridade.PRIORIDADE_ALTA);
+        });
+        assertThrows(InvalidDescricaoException.class, () -> {
+            this.tarefaService.criarTarefa("Título Criada", "", "23/09/2024", TarefaPrioridade.PRIORIDADE_ALTA);
+        });
+        assertThrows(InvalidDescricaoException.class, () -> {
+            this.tarefaService.criarTarefa("Título Criada", "    ", "23/09/2024", TarefaPrioridade.PRIORIDADE_ALTA);
+        });
+        assertThrows(InvalidTituloException.class, () -> {
+            this.tarefaService.criarTarefa(null, "Descrição Criada", "23/09/2024", TarefaPrioridade.PRIORIDADE_ALTA);
+        });
+        assertThrows(InvalidTituloException.class, () -> {
+            this.tarefaService.criarTarefa("", "Descrição Criada", "23/09/2024", TarefaPrioridade.PRIORIDADE_ALTA);
+        });
+        assertThrows(InvalidTituloException.class, () -> {
+            this.tarefaService.criarTarefa("    ", "Descrição Criada", "23/09/2024", TarefaPrioridade.PRIORIDADE_ALTA);
+        });
+    }
+
+
 }
