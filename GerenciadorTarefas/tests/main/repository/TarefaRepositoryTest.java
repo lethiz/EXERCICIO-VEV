@@ -6,6 +6,8 @@ import main.util.TarefaPrioridade;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,9 +36,12 @@ class TarefaRepositoryTest {
 
     @Test
     void recuperarTarefasTeste() {
-        HashMap<String, Tarefa> tarefas =  this.tarefaRepository.recuperarTarefas();
-        Integer contagem = tarefas.size();
+        HashMap<String, Tarefa> tarefasRecuperadas =  this.tarefaRepository.recuperarTarefas();
+        Integer contagem = tarefasRecuperadas.size();
         assertEquals(contagem, 2);
+
+        Tarefa[] tarefasTarget = {tarefaTeste, tarefaTesteOutra};
+        assertArrayEquals(tarefasRecuperadas.values().toArray(), tarefasTarget);
     }
 
     @Test
@@ -52,9 +57,13 @@ class TarefaRepositoryTest {
     @Test
     void buscarTarefasTeste() {
         List<Tarefa> tarefasBuscadas =  this.tarefaRepository.buscarTarefas("Título Testagem");
+
         assertEquals(1, tarefasBuscadas.size());
         assertEquals(tarefaTeste, tarefasBuscadas.getFirst());
         assertEquals("Título Testagem", tarefasBuscadas.getFirst().getTitulo());
+
+        Tarefa[] tarefasTarget = {tarefaTeste, tarefaTesteOutra};
+        assertArrayEquals(tarefasBuscadas.toArray(), tarefasTarget);
     }
 
     @Test
@@ -63,8 +72,12 @@ class TarefaRepositoryTest {
         assertEquals(contagem, 2);
 
         Tarefa tarefaCriada = new Tarefa("Título Criada", "Descrição Criada", "26/09/2024", TarefaPrioridade.PRIORIDADE_BAIXA);
-        Boolean tarefa =  this.tarefaRepository.adicionarTarefa(tarefaCriada);
-        assertTrue(tarefa);
+
+        Tarefa tarefaAdicionada =  this.tarefaRepository.adicionarTarefa(tarefaCriada);
+        assertEquals("Título Criado", tarefaAdicionada.getTitulo());
+        assertEquals("Descrição Criação", tarefaAdicionada.getDescricao());
+        assertEquals("26/09/2024", tarefaAdicionada.getDataVencimento());
+        assertEquals(TarefaPrioridade.PRIORIDADE_BAIXA, tarefaAdicionada.getPrioridade());
 
         contagem =  this.tarefaRepository.contarTarefas();
         assertEquals(contagem, 3);
@@ -76,8 +89,8 @@ class TarefaRepositoryTest {
         assertEquals(contagem, 2);
 
         this.tarefaTeste.setDescricao("Nova Descrição");
-        Boolean tarefa = this.tarefaRepository.atualizarTarefa(tarefaTeste);
-        assertTrue(tarefa);
+        Tarefa tarefa = this.tarefaRepository.atualizarTarefa(tarefaTeste);
+        assertEquals(tarefa.getDescricao(), "Nova Descrição");
 
         contagem =  this.tarefaRepository.contarTarefas();
         assertEquals(contagem, 2);
@@ -92,8 +105,8 @@ class TarefaRepositoryTest {
         Integer contagem =  this.tarefaRepository.contarTarefas();
         assertEquals(contagem, 2);
 
-        Boolean tarefaRemovida =  this.tarefaRepository.removerTarefa(tarefaTeste.getId());
-        assertTrue(tarefaRemovida);
+        Boolean status =  this.tarefaRepository.removerTarefa(tarefaTeste.getId());
+        assertTrue(status);
 
         contagem =  this.tarefaRepository.contarTarefas();
         assertEquals(contagem, 2);
