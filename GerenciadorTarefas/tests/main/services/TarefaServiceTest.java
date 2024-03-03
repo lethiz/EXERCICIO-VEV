@@ -1,7 +1,9 @@
 package main.services;
 
+import main.exceptions.InvalidIDException;
 import main.exceptions.Model.*;
 import main.exceptions.Service.InvalidComparacaoException;
+import main.exceptions.Service.InvalidTarefaException;
 import main.models.Tarefa;
 import main.util.TarefaPrioridade;
 import org.junit.jupiter.api.BeforeEach;
@@ -102,5 +104,28 @@ public class TarefaServiceTest {
         assertEquals(tarefasBuscadas.get(0).getDataVencimento(), "23/09/2024");
         assertEquals(tarefasBuscadas.get(2).getDataVencimento(),"25/09/2024");
     }
+
+    Test
+    void marcarPrioridadeTeste() throws InvalidPrioridadeException, InvalidIDException, InvalidTarefaException {
+        List<Tarefa> tarefasBuscadas = this.tarefaService.buscarTarefas();
+        assertEquals(3, tarefasBuscadas.size());
+
+        Tarefa tarefaRemarcada = this.tarefaService.marcarPrioridade(tarefaTeste.getId(), TarefaPrioridade.PRIORIDADE_BAIXA);
+        assertEquals(tarefaRemarcada.getPrioridade(), TarefaPrioridade.PRIORIDADE_BAIXA);
+
+        tarefasBuscadas = this.tarefaService.buscarTarefas();
+        assertEquals(3, tarefasBuscadas.size());
+    }
+
+    @Test
+    void marcarPrioridadeInvalidaTeste(){
+        assertThrows(InvalidPrioridadeException.class, () -> {
+            this.tarefaService.marcarPrioridade(tarefaTeste.getId(),null);
+        });
+        assertThrows(InvalidIDException.class, () -> {
+            this.tarefaService.marcarPrioridade(null, TarefaPrioridade.PRIORIDADE_BAIXA);
+        });
+    }
+
 
 }
