@@ -105,7 +105,7 @@ public class TarefaServiceTest {
         assertEquals(tarefasBuscadas.get(2).getDataVencimento(),"25/09/2024");
     }
 
-    Test
+    @Test
     void marcarPrioridadeTeste() throws InvalidPrioridadeException, InvalidIDException, InvalidTarefaException {
         List<Tarefa> tarefasBuscadas = this.tarefaService.buscarTarefas();
         assertEquals(3, tarefasBuscadas.size());
@@ -127,5 +127,22 @@ public class TarefaServiceTest {
         });
     }
 
+    @Test
+    void recuperarTarefaTeste() throws InvalidIDException, InvalidTarefaException {
+        Tarefa tarefasRecuperada = this.tarefaService.recuperarTarefa(tarefaTeste.getId());
+        assertEquals("Título Testagem", tarefasRecuperada.getTitulo());
+        assertEquals("Descrição Testagem", tarefasRecuperada.getDescricao());
+        assertEquals("23/09/2024", tarefasRecuperada.getDataVencimento());
+        assertEquals(TarefaPrioridade.PRIORIDADE_ALTA, tarefasRecuperada.getPrioridade());
+
+    }
+
+    @Test
+    void recuperarTarefaInvalidaTeste()  {
+        assertThrows(InvalidIDException.class, () -> {
+            this.tarefaService.recuperarTarefa(null);
+        });
+
+    }
 
 }
