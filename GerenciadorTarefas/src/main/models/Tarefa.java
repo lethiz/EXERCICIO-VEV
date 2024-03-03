@@ -1,5 +1,6 @@
 package main.models;
 
+import java.util.Objects;
 import java.util.UUID;
 import main.util.TarefaPrioridade;
 
@@ -55,4 +56,27 @@ public class Tarefa {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tarefa tarefa = (Tarefa) o;
+        return Objects.equals(id, tarefa.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Tarefa{" +
+                "id='" + id + '\'' +
+                ", titulo='" + titulo + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", dataVencimento='" + dataVencimento + '\'' +
+                ", prioridade=" + prioridade +
+                '}';
+    }
 }
