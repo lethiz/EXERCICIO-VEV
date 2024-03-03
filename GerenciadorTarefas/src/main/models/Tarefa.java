@@ -3,10 +3,7 @@ package main.models;
 import java.util.Objects;
 import java.util.UUID;
 
-import main.exceptions.Model.InvalidDataVencimentoException;
-import main.exceptions.Model.InvalidDescricaoException;
-import main.exceptions.Model.InvalidPrioridadeException;
-import main.exceptions.Model.InvalidTituloException;
+import main.exceptions.Model.*;
 import main.util.CheckInvalids;
 import main.util.TarefaPrioridade;
 
@@ -20,7 +17,7 @@ public class Tarefa {
 
     private final CheckInvalids checkInvalids = new CheckInvalids();
 
-    public Tarefa(String titulo, String descricao, String dataVencimento, TarefaPrioridade prioridade) throws InvalidTituloException, InvalidDescricaoException, InvalidDataVencimentoException, InvalidPrioridadeException {
+    public Tarefa(String titulo, String descricao, String dataVencimento, TarefaPrioridade prioridade) throws InvalidTituloException, InvalidDescricaoException, InvalidDataVencimentoException, InvalidPrioridadeException, InvalidDataVencimentoFormatException {
         this.id = UUID.randomUUID().toString();
 
         checkInvalids.checkTitulo(titulo);
@@ -32,7 +29,6 @@ public class Tarefa {
         this.descricao = descricao;
         this.dataVencimento = dataVencimento;
         this.prioridade = prioridade;
-
 
     }
 
@@ -62,7 +58,7 @@ public class Tarefa {
         return this.dataVencimento;
     }
 
-    public void setDataVencimento(String dataVencimentoNova) throws InvalidDataVencimentoException {
+    public void setDataVencimento(String dataVencimentoNova) throws InvalidDataVencimentoException, InvalidDataVencimentoFormatException {
         checkInvalids.checkDataVencimento(dataVencimentoNova);
         this.dataVencimento = dataVencimentoNova;
     }
@@ -81,7 +77,7 @@ public class Tarefa {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tarefa tarefa = (Tarefa) o;
-        return Objects.equals(id, tarefa.id);
+        return Objects.equals(titulo, tarefa.titulo) && Objects.equals(descricao, tarefa.descricao) && Objects.equals(dataVencimento, tarefa.dataVencimento) && prioridade == tarefa.prioridade && Objects.equals(checkInvalids, tarefa.checkInvalids);
     }
 
     @Override
@@ -99,4 +95,6 @@ public class Tarefa {
                 ", prioridade=" + prioridade +
                 '}';
     }
+
+
 }

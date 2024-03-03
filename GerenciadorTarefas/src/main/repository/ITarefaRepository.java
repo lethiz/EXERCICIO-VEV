@@ -1,30 +1,23 @@
 package main.repository;
 
-import main.exceptions.InvalidIDException;
-import main.exceptions.Model.InvalidDataVencimentoException;
-import main.exceptions.Model.InvalidDescricaoException;
-import main.exceptions.Model.InvalidPrioridadeException;
-import main.exceptions.Model.InvalidTituloException;
-import main.exceptions.Repository.InvalidTarefaException;
 import main.models.Tarefa;
 
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class ITarefaRepository {
+public interface ITarefaRepository {
+    HashMap<String, Tarefa> recuperarTarefas();
 
-    public abstract HashMap<String, Tarefa> recuperarTarefas();
+    Tarefa recuperarTarefa(String idTarefa);
 
-    public abstract Tarefa recuperarTarefa(String idTarefa) throws InvalidIDException, InvalidTarefaException;
+    List<Tarefa> buscarTarefas(String titulo);
 
-    public abstract List<Tarefa> buscarTarefas(String titulo) throws InvalidTituloException;
+    Tarefa adicionarTarefa(Tarefa tarefa);
 
-    public abstract Boolean adicionarTarefa(Tarefa tarefa) throws InvalidTarefaException;
+    Tarefa atualizarTarefa(Tarefa tarefa);
 
-    public abstract Boolean atualizarTarefa(Tarefa tarefa) throws InvalidTarefaException, InvalidTituloException, InvalidDescricaoException, InvalidDataVencimentoException, InvalidPrioridadeException;
+    Boolean removerTarefa(String idTarefa);
 
-    public abstract Boolean removerTarefa(String idTarefa) throws InvalidIDException, InvalidTarefaException;
-
-    public abstract Integer contarTarefas();
+    Integer contarTarefas();
 
 }
