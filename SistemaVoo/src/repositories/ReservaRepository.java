@@ -17,7 +17,21 @@ public class ReservaRepository {
     }
 
     public int getTotalReservas() {
-        return 0;
+        return this.reservas.size();
+    }
+
+    public String criarReserva(Reserva reserva) {
+
+        try {
+            this.reservas.add(reserva);
+
+            String reservaSucesso = "Reserva feita com sucesso." + "\nDados da reserva:\n";
+
+            return reservaSucesso;
+
+        } catch (Exception e){
+            return e.toString();
+        }
     }
 
 

@@ -6,7 +6,6 @@ import java.util.UUID;
 public class Voo {
 
     private final UUID ID;
-
     private String origem;
     private String destino;
     private int totalPassageiros;

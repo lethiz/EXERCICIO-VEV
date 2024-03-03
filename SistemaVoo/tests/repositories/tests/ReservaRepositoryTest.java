@@ -33,5 +33,16 @@ public class ReservaRepositoryTest {
     public void checkCriarReserva() {
         Reserva reserva = new Reserva("Clay", "83999991334", vooId, 3, 2302 * 3);
         reservaRepository.criarReserva(reserva);
+        assertEquals(1, reservaRepository.getTotalReservas());
     }
+
+    @Test
+    public void checkRemoverReserva() {
+        Reserva reserva = new Reserva("Clay", "83999991334", vooId, 3, 2302 * 3);
+        UUID reservaID = reserva.getId();
+        reservaRepository.criarReserva(reserva);
+        reservaRepository.removerReserva(reservaID);
+        assertEquals(0, reservaRepository.getTotalReservas());
+    }
+
 }

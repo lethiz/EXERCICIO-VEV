@@ -27,5 +27,10 @@ public class ReservaTest {
         assertNotNull(reserva);
     }
 
+    @Test
+    public void checkGetId() {
+
+    }
+
 
 }
