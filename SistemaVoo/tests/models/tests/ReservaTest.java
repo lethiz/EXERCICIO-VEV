@@ -28,8 +28,40 @@ public class ReservaTest {
     }
 
     @Test
-    public void checkGetId() {
+    public void testGetIdNotNull() {
+        Reserva reserva = new Reserva("Glameow", "8398329487", UUID.randomUUID(), 1, 100.0f);
 
+        assertNotNull(reserva.getId());
+    }
+
+    @Test
+    public void testToString() {
+        UUID vooId = UUID.randomUUID();
+        Reserva reserva = new Reserva("Tsareena", "98293829372", vooId, 2, 2000.0f);
+
+        String expected = "ID Reserva: " + reserva.getId() +
+                "\nNome de usuário: '" + "Tsareena" + '\'' +
+                "\nNúmero de telefone: '" + "98293829372" + '\'' +
+                "\nID do Voo: " + vooId +
+                "\nTotal de passagens: " + 2 +
+                "\nValor Total R$" + 2000.f;
+
+        assertEquals(expected, reserva.toString());
+    }
+
+    @Test
+    public void testToStringNomeVazioTelefoneVazio() {
+        UUID vooId = UUID.randomUUID();
+        Reserva reserva = new Reserva("", "", vooId, 2, 100.0f);
+
+        String expected = "ID Reserva: " + reserva.getId() +
+                "\nNome de usuário: ''" +
+                "\nNúmero de telefone: ''" +
+                "\nID do Voo: " + vooId +
+                "\nTotal de passagens: " + 2 +
+                "\nValor Total R$" + 100.0f;
+
+        assertEquals(expected, reserva.toString());
     }
 
 

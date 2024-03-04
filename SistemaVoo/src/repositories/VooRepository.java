@@ -33,6 +33,16 @@ public class VooRepository {
         this.voos.remove(voo);
     }
 
+    public Voo getVooPorId(UUID vooId) {
+        for (Voo voo : voos) {
+            if (voo.getID().equals(vooId)) {
+                return voo;
+            }
+        }
+        return null;
+    }
+
+
     public void removerVooPorId(UUID vooId) {
         this.voos.removeIf(voo -> voo.getID().equals(vooId));
     }
@@ -59,6 +69,25 @@ public class VooRepository {
         return this.voos.stream()
                 .filter(voo -> voo.getData().equals(data))
                 .collect(Collectors.toList());
+    }
+
+    public List<Voo> getVoosPorFiltros(String origem, String destino, LocalDate data, float valor, int quantidadePassageiros) {
+        return this.voos.stream()
+                .filter(voo -> (data == null || voo.getData().equals(data)))
+                .filter(voo -> (valor == 0 || voo.getPreco() <= valor))
+                .filter(voo -> (quantidadePassageiros == 0 || voo.getTotalPassageiros() == quantidadePassageiros))
+                .filter(voo -> (origem == null || origem.isEmpty() || voo.getOrigem().equals(origem)))
+                .filter(voo -> (destino == null || destino.isEmpty() || voo.getDestino().equals(destino)))
+                .collect(Collectors.toList());
+    }
+
+    public List<Voo> getVoos() {
+        return new ArrayList<>(voos);
+    }
+
+    public void atualizarQtdPassageirosDisponiveis(UUID vooUid, int quantidadePassageiros) {
+        Voo voo = this.getVooPorId(vooUid);
+        voo.decrementarTotalPassageiros(quantidadePassageiros);
     }
 
 }

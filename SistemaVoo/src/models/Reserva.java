@@ -25,7 +25,16 @@ public class Reserva {
     }
 
     public UUID getId() {
-
         return this.reservaID;
+    }
+
+    @Override
+    public String toString() {
+        return "ID Reserva: " + reservaID +
+                "\nNome de usuário: '" + username + '\'' +
+                "\nNúmero de telefone: '" + phoneNumber + '\'' +
+                "\nID do Voo: " + vooId +
+                "\nTotal de passagens: " + amountPassengers +
+                "\nValor Total R$" + valorTotal;
     }
 }

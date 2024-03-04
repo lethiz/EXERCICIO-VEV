@@ -70,7 +70,37 @@ public class VooTest {
 
     @Test
     public void testDecrementarQuantidadePassageiros() {
-        novoVoo.decrementarTotalPassageiros();
+        novoVoo.decrementarTotalPassageiros(1);
         assertEquals(199, novoVoo.getTotalPassageiros());
+    }
+
+    @Test
+    public void testToString() {
+        Voo voo = new Voo("Origem", "Destino", 10, LocalDate.of(2022, 12, 31), 100.0f);
+
+        String expected = "ID=" + voo.getID() +
+                ",\nOrigem: '" + voo.getOrigem() + '\'' +
+                ",\nDestino: '" + voo.getDestino() + '\'' +
+                ",\nTotal de passageiros: " + voo.getTotalPassageiros() +
+                ",\nData: " + voo.getData() +
+                ",\nValor da passagem: " + voo.getPreco() +
+                '}';
+
+        assertEquals(expected, voo.toString());
+    }
+
+    @Test
+    public void testToStringEmptyOrigemAndDestino() {
+        Voo voo = new Voo("", "", 10, LocalDate.of(2022, 12, 31), 100.0f);
+
+        String expected = "ID=" + voo.getID() +
+                ",\nOrigem: ''" +
+                ",\nDestino: ''" +
+                ",\nTotal de passageiros: " + voo.getTotalPassageiros() +
+                ",\nData: " + voo.getData() +
+                ",\nValor da passagem: " + voo.getPreco() +
+                '}';
+
+        assertEquals(expected, voo.toString());
     }
 }

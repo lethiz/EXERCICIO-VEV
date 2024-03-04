@@ -59,9 +59,22 @@ public class Voo {
         this.data = data;
     }
 
-    public void decrementarTotalPassageiros() {
-        this.totalPassageiros--;
+    public float getPreco() {
+        return preco;
     }
 
+    public void decrementarTotalPassageiros(int valor) {
+        this.totalPassageiros-=valor;
+    }
+
+    public String toString() {
+        return "ID=" + ID +
+                ",\nOrigem: '" + origem + '\'' +
+                ",\nDestino: '" + destino + '\'' +
+                ",\nTotal de passageiros: " + totalPassageiros +
+                ",\nData: " + data +
+                ",\nValor da passagem: " + preco +
+                '}';
+    }
 
 }

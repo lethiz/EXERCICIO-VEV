@@ -21,6 +21,15 @@ public class ReservaRepository {
         return this.reservas.size();
     }
 
+    public Reserva getReservaPorId(UUID reservaId) {
+        for (Reserva reserva : reservas) {
+            if (reserva.getId().equals(reservaId)) {
+                return reserva;
+            }
+        }
+        return null;
+    }
+
     public String criarReserva(Reserva reserva) {
 
         try {
@@ -34,6 +43,8 @@ public class ReservaRepository {
             return e.toString();
         }
     }
+
+
 
     public void removerReserva(UUID reservaId) {
         this.reservas.removeIf(reserva -> reserva.getId().equals(reservaId));
