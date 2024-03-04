@@ -127,4 +127,21 @@ public class VooRepositoryTest {
         LocalDate proxSemana = hoje.plusDays(7);
         assertEquals(voosEsperados, vooRepository.getVoosPorData(proxSemana));
     }
+
+    @Test
+    public void checkGetAllVoos() {
+        Voo vooAlpha = new Voo("Brasil", "Argentina", 50, LocalDate.now(), 2308);
+        Voo vooBeta = new Voo("Brasil", "Estados Unidos", 80, LocalDate.now(), 2308);
+        Voo vooGama = new Voo("Estados Unidos", "Reino Unido", 90, LocalDate.now(), 2308);
+        Voo vooDelta = new Voo("Brasil", "Reino Unido", 200, LocalDate.now(), 2308);
+
+        vooRepository.adicionarVoo(vooAlpha);
+        vooRepository.adicionarVoo(vooBeta);
+        vooRepository.adicionarVoo(vooGama);
+        vooRepository.adicionarVoo(vooDelta);
+
+        ArrayList<Voo> voosEsperados = new ArrayList<>(Arrays.asList(vooAlpha, vooBeta, vooGama, vooDelta));
+
+        assertEquals(voosEsperados, vooRepository.getVoos());
+    }
 }
