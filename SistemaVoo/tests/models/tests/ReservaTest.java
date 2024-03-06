@@ -64,5 +64,25 @@ public class ReservaTest {
         assertEquals(expected, reserva.toString());
     }
 
+    @Test
+    public void testGetUsername() {
+        String username = "Macaco Louco";
+        Reserva reserva = new Reserva("Macaco Louco", "34523463623", UUID.randomUUID(), 2, 100.0f);
+        assertEquals(username, reserva.getUsername());
+    }
+
+    @Test
+    public void testGetVooId() {
+        UUID vooId = UUID.randomUUID();
+        Reserva reserva = new Reserva("Tsareena", "3245437432", vooId, 2, 100.0f);
+        assertEquals(vooId, reserva.getVooId());
+    }
+
+    @Test
+    public void testGetAmountPassengers() {
+        int amountPassengers = 2;
+        Reserva reserva = new Reserva("Evelynn", "23452346254", UUID.randomUUID(), amountPassengers, 100.0f);
+        assertEquals(amountPassengers, reserva.getAmountPassengers());
+    }
 
 }

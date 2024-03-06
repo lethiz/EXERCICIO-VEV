@@ -3,7 +3,6 @@ import models.Voo;
 import repositories.ReservaRepository;
 import repositories.VooRepository;
 
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -51,39 +50,14 @@ public class SystemVoo {
         switch (operacao) {
             case "L" -> listarVoosMenu(voos, scanner);
             case "F" -> criarReserva(voos, reservas, scanner);
-            /*case "C" -> cancelarReserva(scanner, voos, reservas);*/
+            case "C" -> cancelarReserva(scanner, voos, reservas);
             case "V" -> verificarReserva(scanner, reservas);
             case "E" -> sair();
             default -> System.out.println("Opção inválida!");
         }
     }
 
-    /*private static void cancelarReservaMenu(Scanner scanner, VooRepository voos, ReservaRepository reservas) {
-        System.out.println("Digite o ID da reserva a qual você deseja cancelar: ");
-
-        System.out.println("Digite o seu nome de usuário: ");
-    }*/
-
-    private static void verificarReserva(Scanner scanner, ReservaRepository reservas) {
-        System.out.println("Digite o ID da reserva a qual você deseja ver: ");
-        String reservaId = scanner.nextLine();
-
-        UUID reservaUUid;
-        try {
-            reservaUUid = UUID.fromString(reservaId);
-        } catch (Exception e) {
-            System.out.println("\nO código de reserva fornecido está inválido!\nRetornando ao menu principal...\n");
-            return;
-        }
-
-        Reserva targetReserva = reservas.getReservaPorId(reservaUUid);
-        String result = targetReserva == null ? "Não foi possível encontrar uma reserva cadastrada em nosso sistema com o ID fornecido" :
-                targetReserva.toString();
-
-        System.out.println(result);
-
-    }
-
+    // Exibe o menu de listagem dos voos
     private static void listarVoosMenu(VooRepository voos, Scanner scanner) {
 
         System.out.println("\nSeleciona uma opção:");
@@ -100,6 +74,7 @@ public class SystemVoo {
 
     }
 
+    // Coleta os filtros do voo
     private static void coletarFiltros(VooRepository voos, Scanner scanner) {
         System.out.println("\nDigite os critérios pelos quais deseja filtrar os voos, ou deixe vazio caso o filtro não seja relevante.\n");
 
@@ -119,6 +94,18 @@ public class SystemVoo {
         String valor = scanner.nextLine();
 
         listarVoosPorCriterio(voos, origem, destino, quantidadePassageiros, data, valor);
+
+    }
+
+    // Lista todos os voos cadastrados
+    private static void listarTodosVoos(VooRepository voos) {
+
+        List<Voo> resultados = voos.getVoos();
+        for (int i = 0; i < resultados.size(); i++) {
+            System.out.printf("Voo " + (i+1) + " --------------------------------------------\n");
+            System.out.println(resultados.get(i));
+            System.out.println("--------------------------------------------------\n");
+        }
 
     }
 
@@ -159,18 +146,31 @@ public class SystemVoo {
         try {
             validarCredenciais(credenciais);
         } catch (Exception e) {
-            System.out.println("As credenciais fornecidas são inválidas! Retornando ao menu inicial.");
+            System.out.println("As credenciais fornecidas são inválidas!\nRetornando ao menu inicial.");
+            return;
+        }
+
+        UUID vooUuid;
+        try {
+            // Parsing para UUID
+            vooUuid = UUID.fromString(vooId);
+        } catch (Exception e) {
+            System.out.println("O ID do Voo fornecido está inválido!\nRetornando ao menu inicial...");
+            return;
+        }
+
+        int quantidadePassageirosParsed;
+        try {
+            // Parsing para Integer
+            quantidadePassageirosParsed = Integer.parseInt(quantidadePassageiros);
+        } catch (Exception e) {
+            System.out.println("Quantidade de passageiros inválida!\nRetornando ao menu inicial...");
             return;
         }
 
 
-        // Parsing para UUID
-        UUID vooUuid = UUID.fromString(vooId);
-        // Parsing para Integer
-        int quantidadePassageirosParsed = Integer.parseInt(quantidadePassageiros);
-
         // Parte que calcula o valor total
-        float valorTotal = calcularValorTotal(vooUuid, quantidadePassageirosParsed, voos);
+        float valorTotal = calcularValorTotalReserva(vooUuid, quantidadePassageirosParsed, voos);
 
         // Atualiza a quantidade de passageiros dentro dos voos
         voos.atualizarQtdPassageirosDisponiveis(vooUuid, quantidadePassageirosParsed);
@@ -183,28 +183,88 @@ public class SystemVoo {
         System.out.println(novaReserva);
     }
 
-    public static float calcularValorTotal(UUID vooId, int quantidadePassageiros, VooRepository voos) {
+    // Calcula o valor total de uma reserva
+    public static float calcularValorTotalReserva(UUID vooId, int quantidadePassageiros, VooRepository voos) {
         Voo voo = voos.getVooPorId(vooId);
         return voo.getPreco() * quantidadePassageiros;
     }
 
+    // Faz a validação de uma lista de strings representando credenciais.
     public static void validarCredenciais(List<String> credenciais) {
+        // Valida todas as credenciais para não ocorrer erros na hora do casting
         for (String c : credenciais) {
             if (c.isEmpty()) {
                 throw new IllegalArgumentException("A quantidade de passageiros fornecida está vazia!");
             }
         }
     }
-    private static void listarTodosVoos(VooRepository voos) {
 
-        List<Voo> resultados = voos.getVoos();
-        for (int i = 0; i < resultados.size(); i++) {
-            System.out.printf("Voo " + (i+1) + " --------------------------------------------\n");
-            System.out.println(resultados.get(i));
-            System.out.println("--------------------------------------------------\n");
+    private static void verificarReserva(Scanner scanner, ReservaRepository reservas) {
+        System.out.println("Digite o ID da reserva a qual você deseja ver: ");
+        String reservaId = scanner.nextLine();
+
+        UUID reservaUUid;
+        try {
+            reservaUUid = UUID.fromString(reservaId);
+        } catch (Exception e) {
+            System.out.println("\nO código de reserva fornecido está inválido!\nRetornando ao menu principal...\n");
+            return;
         }
 
+        Reserva targetReserva = reservas.getReservaPorId(reservaUUid);
+        String result = targetReserva == null ? "Não foi possível encontrar uma reserva cadastrada em nosso sistema com o ID fornecido" :
+                targetReserva.toString();
+
+        System.out.println(result);
+
     }
+
+   private static void cancelarReserva(Scanner scanner, VooRepository voos, ReservaRepository reservas) {
+
+        System.out.println("Digite o ID da reserva a qual você deseja cancelar: ");
+        String reservaId = scanner.nextLine();
+
+        System.out.println("Digite o seu nome de usuário: ");
+        String username  = scanner.nextLine();
+
+        List<String> credenciais = new ArrayList<>(List.of(reservaId, username));
+
+       try {
+           validarCredenciais(credenciais);
+       } catch (Exception e) {
+           System.out.println("As credenciais fornecidas são inválidas! Retornando ao menu inicial.");
+           return;
+       }
+
+       UUID reservaIdParsed;
+       try {
+           reservaIdParsed = UUID.fromString(reservaId);
+       } catch (Exception e) {
+           System.out.println("\nO código de reserva fornecido está inválido!\nRetornando ao menu principal...\n");
+           return;
+       }
+
+
+       // Atualização de número de passageiros disponíveis
+       Reserva reserva = reservas.getReservaPorId(reservaIdParsed);
+       if (reserva == null) {
+           System.out.println("Reserva não encontrada em nosso sistema...\nRetornando ao menu principal...\n");
+       } else {
+           UUID vooId = reserva.getVooId();
+           voos.atualizarQtdPassageirosDisponiveis(vooId, -(reserva.getAmountPassengers()));
+
+           if (!reserva.getUsername().equals(username)) {
+               System.out.println("O nome de usuário fornecido não corresponde ao nome de usuário da reserva...\nRetornando ao menu inicial...\n");
+               return;
+           }
+
+           reservas.removerReserva(reservaIdParsed, username);
+           System.out.println("\nReserva cancelada com sucesso!\nVoltando ao menu inicial...\n");
+       }
+
+    }
+
+    // Finaliza o programa
     private static void sair() {
         System.out.println("\nObrigado por utilizar os nossos serviços!");
         System.exit(0);

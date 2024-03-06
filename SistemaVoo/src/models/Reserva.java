@@ -28,6 +28,18 @@ public class Reserva {
         return this.reservaID;
     }
 
+    public String getUsername() {
+        return this.username;
+    }
+
+    public UUID getVooId() {
+        return this.vooId;
+    }
+
+    public int getAmountPassengers() {
+        return this.amountPassengers;
+    }
+
     @Override
     public String toString() {
         return "ID Reserva: " + reservaID +

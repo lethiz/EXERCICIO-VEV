@@ -44,10 +44,9 @@ public class ReservaRepository {
         }
     }
 
+    public void removerReserva(UUID reservaId, String username) {
 
-
-    public void removerReserva(UUID reservaId) {
-        this.reservas.removeIf(reserva -> reserva.getId().equals(reservaId));
+        this.reservas.removeIf(reserva -> reserva.getId().equals(reservaId) && reserva.getUsername().equals(username));
     }
 
 
