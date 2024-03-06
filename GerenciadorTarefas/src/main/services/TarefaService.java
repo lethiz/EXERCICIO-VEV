@@ -66,8 +66,14 @@ public class TarefaService implements ITarefaService{
         return tarefaRecuperadas.stream().sorted(new DataVencimentoComparator()).toList();
     }
 
-    public Tarefa marcarPrioridade(String idTarefa, TarefaPrioridade tarefaPrioridade) throws InvalidIDException, InvalidTarefaException, InvalidPrioridadeException {
+    public Tarefa marcarPrioridade(String idTarefa, String prioridade) throws InvalidIDException, InvalidTarefaException, InvalidPrioridadeException {
         checkInvalids.checkId(idTarefa);
+
+        TarefaPrioridade tarefaPrioridade = TarefaPrioridade.PRIORIDADE_INDEFINIDA;
+        if(prioridade.equalsIgnoreCase("ALTA")) tarefaPrioridade = TarefaPrioridade.PRIORIDADE_ALTA;
+        else if(prioridade.equalsIgnoreCase("MEDIA") || prioridade.equalsIgnoreCase("MÉDIA") ) tarefaPrioridade = TarefaPrioridade.PRIORIDADE_MEDIA;
+        else if(prioridade.equalsIgnoreCase("BAIXA")) tarefaPrioridade = TarefaPrioridade.PRIORIDADE_BAIXA;
+
         checkInvalids.checkPrioridade(tarefaPrioridade);
 
         Tarefa tarefaRecuperada = tarefasRepository.recuperarTarefa(idTarefa);
@@ -91,8 +97,14 @@ public class TarefaService implements ITarefaService{
         return tarefaRecuperada;
     }
 
-    public Tarefa criarTarefa(String titulo, String descricao, String dataVencimento, TarefaPrioridade prioridade) throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDescricaoException, InvalidTituloException, InvalidDataVencimentoFormatException {
-        Tarefa tarefaNova = new Tarefa(titulo, descricao, dataVencimento, prioridade);
+    public Tarefa criarTarefa(String titulo, String descricao, String dataVencimento, String prioridade) throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDescricaoException, InvalidTituloException, InvalidDataVencimentoFormatException {
+        TarefaPrioridade tarefaPrioridade = TarefaPrioridade.PRIORIDADE_INDEFINIDA;
+        if(prioridade.equalsIgnoreCase("ALTA")) tarefaPrioridade = TarefaPrioridade.PRIORIDADE_ALTA;
+        else if(prioridade.equalsIgnoreCase("MEDIA") || prioridade.equalsIgnoreCase("MÉDIA") ) tarefaPrioridade = TarefaPrioridade.PRIORIDADE_MEDIA;
+        else if(prioridade.equalsIgnoreCase("BAIXA")) tarefaPrioridade = TarefaPrioridade.PRIORIDADE_BAIXA;
+
+
+        Tarefa tarefaNova = new Tarefa(titulo, descricao, dataVencimento, tarefaPrioridade);
 
         checkInvalids.checkTitulo(tarefaNova.getTitulo());
         checkInvalids.checkDescricao(tarefaNova.getDescricao());
@@ -103,17 +115,22 @@ public class TarefaService implements ITarefaService{
 
         return tarefaCriada;
     }
-    public Tarefa atualizarTarefa(Tarefa tarefa) throws InvalidIDException, InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDescricaoException, InvalidTituloException, InvalidDataVencimentoFormatException {
+    public Tarefa atualizarTarefa(String idTarefa, Tarefa tarefa) throws InvalidIDException, InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDescricaoException, InvalidTituloException, InvalidDataVencimentoFormatException {
         checkInvalids.checkId(tarefa.getId());
 
-        Tarefa tarefaRecuperada = tarefasRepository.recuperarTarefa(tarefa.getId());
+        Tarefa tarefaRecuperada = tarefasRepository.recuperarTarefa(idTarefa);
 
         checkInvalids.checkTitulo(tarefa.getTitulo());
         checkInvalids.checkDescricao(tarefa.getDescricao());
         checkInvalids.checkDataVencimento(tarefa.getDataVencimento());
         checkInvalids.checkPrioridade(tarefa.getPrioridade());
 
-        Tarefa tarefaAtualizada = tarefasRepository.atualizarTarefa(tarefa);
+        tarefaRecuperada.setTitulo(tarefa.getTitulo());
+        tarefaRecuperada.setDescricao(tarefa.getDescricao());
+        tarefaRecuperada.setPrioridade(tarefa.getPrioridade());
+        tarefaRecuperada.setDataVencimento(tarefa.getDataVencimento());
+
+        Tarefa tarefaAtualizada = tarefasRepository.atualizarTarefa(tarefaRecuperada);
 
         return tarefaAtualizada;
     }

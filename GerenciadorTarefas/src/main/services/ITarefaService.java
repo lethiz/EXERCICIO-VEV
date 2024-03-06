@@ -18,13 +18,13 @@ public interface ITarefaService {
 
     List<Tarefa> buscarTarefasDataVencimento();
 
-    Tarefa marcarPrioridade(String idTarefa, TarefaPrioridade tarefaPrioridade) throws InvalidIDException, InvalidTarefaException, InvalidPrioridadeException;
+    Tarefa marcarPrioridade(String idTarefa, String tarefaPrioridade) throws InvalidIDException, InvalidTarefaException, InvalidPrioridadeException;
 
     Tarefa recuperarTarefa(String idTarefa) throws InvalidIDException, InvalidTarefaException;
 
-    public Tarefa criarTarefa(String titulo, String descricao, String dataVencimento, TarefaPrioridade prioridade) throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDescricaoException, InvalidTituloException, InvalidDataVencimentoFormatException;
+    public Tarefa criarTarefa(String titulo, String descricao, String dataVencimento, String prioridade) throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDescricaoException, InvalidTituloException, InvalidDataVencimentoFormatException;
 
-    Tarefa atualizarTarefa(Tarefa tarefa) throws InvalidIDException, InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDescricaoException, InvalidTituloException, InvalidDataVencimentoFormatException;
+    Tarefa atualizarTarefa(String idTarefa, Tarefa tarefa) throws InvalidIDException, InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDescricaoException, InvalidTituloException, InvalidDataVencimentoFormatException;
 
     Boolean removerTarefa(String idTarefa) throws InvalidIDException, InvalidTarefaException;
 }

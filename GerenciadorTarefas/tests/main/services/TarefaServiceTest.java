@@ -25,9 +25,9 @@ public class TarefaServiceTest {
     @BeforeEach
     public void prepararTest() throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDescricaoException, InvalidTituloException, InvalidDataVencimentoFormatException {
         this.tarefaService = new TarefaService();
-        this.tarefaTeste = this.tarefaService.criarTarefa("Título Testagem", "Descrição Testagem", "23/09/2024", TarefaPrioridade.PRIORIDADE_ALTA);
-        this.tarefaTesteOutra =  this.tarefaService.criarTarefa("Título Outra Testagem", "Descrição Outra Testagem", "25/09/2024", TarefaPrioridade.PRIORIDADE_MEDIA);
-        this.tarefaTesteFinal = this.tarefaService.criarTarefa("Título Testagem Final", "Descrição Testagem Final", "24/09/2024", TarefaPrioridade.PRIORIDADE_ALTA);
+        this.tarefaTeste = this.tarefaService.criarTarefa("Título Testagem", "Descrição Testagem", "23/09/2024", "ALTA");
+        this.tarefaTesteOutra =  this.tarefaService.criarTarefa("Título Outra Testagem", "Descrição Outra Testagem", "25/09/2024", "MEDIA");
+        this.tarefaTesteFinal = this.tarefaService.criarTarefa("Título Testagem Final", "Descrição Testagem Final", "24/09/2024", "ALTA");
     }
 
     @Test
@@ -93,9 +93,7 @@ public class TarefaServiceTest {
 
     @Test
     void buscarTarefasOrdenadasInvalidasTeste()  {
-        assertThrows(InvalidComparacaoException.class, () -> {
-            this.tarefaService.buscarTarefasOrdenadas(null);
-        });
+        assertThrows(InvalidComparacaoException.class, () -> this.tarefaService.buscarTarefasOrdenadas(null));
     }
 
     @Test
@@ -133,7 +131,7 @@ public class TarefaServiceTest {
         List<Tarefa> tarefasBuscadas = this.tarefaService.buscarTarefas();
         assertEquals(3, tarefasBuscadas.size());
 
-        Tarefa tarefaRemarcada = this.tarefaService.marcarPrioridade(tarefaTeste.getId(), TarefaPrioridade.PRIORIDADE_BAIXA);
+        Tarefa tarefaRemarcada = this.tarefaService.marcarPrioridade(tarefaTeste.getId(), "BAIXA");
         assertEquals(tarefaRemarcada.getPrioridade(), TarefaPrioridade.PRIORIDADE_BAIXA);
 
         tarefasBuscadas = this.tarefaService.buscarTarefas();
@@ -142,12 +140,7 @@ public class TarefaServiceTest {
 
     @Test
     void marcarPrioridadeInvalidaTeste(){
-        assertThrows(InvalidPrioridadeException.class, () -> {
-            this.tarefaService.marcarPrioridade(tarefaTeste.getId(),null);
-        });
-        assertThrows(InvalidIDException.class, () -> {
-            this.tarefaService.marcarPrioridade(null, TarefaPrioridade.PRIORIDADE_BAIXA);
-        });
+        assertThrows(InvalidIDException.class, () -> this.tarefaService.marcarPrioridade(null, "BAIXA"));
     }
 
     @Test
@@ -162,9 +155,7 @@ public class TarefaServiceTest {
 
     @Test
     void recuperarTarefaInvalidaTeste()  {
-        assertThrows(InvalidIDException.class, () -> {
-            this.tarefaService.recuperarTarefa(null);
-        });
+        assertThrows(InvalidIDException.class, () -> this.tarefaService.recuperarTarefa(null));
 
     }
 
@@ -174,7 +165,7 @@ public class TarefaServiceTest {
         assertEquals(3, tarefasBuscadas.size());
 
 
-        Tarefa tarefaCriada = this.tarefaService.criarTarefa("Título Criada", "Descrição Criada", "23/09/2024", TarefaPrioridade.PRIORIDADE_BAIXA);
+        Tarefa tarefaCriada = this.tarefaService.criarTarefa("Título Criada", "Descrição Criada", "23/09/2024", "BAIXA");
 
         tarefasBuscadas = this.tarefaService.buscarTarefas();
         assertEquals(4, tarefasBuscadas.size());
@@ -183,41 +174,16 @@ public class TarefaServiceTest {
 
     @Test
     void criarTarefaInvalidaTeste(){
-        assertThrows(InvalidPrioridadeException.class, () -> {
-            this.tarefaService.criarTarefa("Título Criada", "Descrição Criada", "23/09/2024", null);
-        });
-        assertThrows(InvalidDataVencimentoException.class, () -> {
-            this.tarefaService.criarTarefa("Título Criada", "Descrição Criada", null, TarefaPrioridade.PRIORIDADE_ALTA);
-        });
-        assertThrows(InvalidDataVencimentoException.class, () -> {
-            this.tarefaService.criarTarefa("Título Criada", "Descrição Criada", "", TarefaPrioridade.PRIORIDADE_ALTA);
-
-        });
-        assertThrows(InvalidDataVencimentoException.class, () -> {
-            this.tarefaService.criarTarefa("Título Criada", "Descrição Criada", "      ", TarefaPrioridade.PRIORIDADE_ALTA);
-
-        });
-        assertThrows(InvalidDataVencimentoFormatException.class, () -> {
-            this.tarefaService.criarTarefa("Título Criada", "Descrição Criada", "23-09-2024", TarefaPrioridade.PRIORIDADE_ALTA);
-        });
-        assertThrows(InvalidDescricaoException.class, () -> {
-            this.tarefaService.criarTarefa("Título Criada", null, "23/09/2024", TarefaPrioridade.PRIORIDADE_ALTA);
-        });
-        assertThrows(InvalidDescricaoException.class, () -> {
-            this.tarefaService.criarTarefa("Título Criada", "", "23/09/2024", TarefaPrioridade.PRIORIDADE_ALTA);
-        });
-        assertThrows(InvalidDescricaoException.class, () -> {
-            this.tarefaService.criarTarefa("Título Criada", "    ", "23/09/2024", TarefaPrioridade.PRIORIDADE_ALTA);
-        });
-        assertThrows(InvalidTituloException.class, () -> {
-            this.tarefaService.criarTarefa(null, "Descrição Criada", "23/09/2024", TarefaPrioridade.PRIORIDADE_ALTA);
-        });
-        assertThrows(InvalidTituloException.class, () -> {
-            this.tarefaService.criarTarefa("", "Descrição Criada", "23/09/2024", TarefaPrioridade.PRIORIDADE_ALTA);
-        });
-        assertThrows(InvalidTituloException.class, () -> {
-            this.tarefaService.criarTarefa("    ", "Descrição Criada", "23/09/2024", TarefaPrioridade.PRIORIDADE_ALTA);
-        });
+        assertThrows(InvalidDataVencimentoException.class, () -> this.tarefaService.criarTarefa("Título Criada", "Descrição Criada", null, "ALTA"));
+        assertThrows(InvalidDataVencimentoException.class, () -> this.tarefaService.criarTarefa("Título Criada", "Descrição Criada", "", "ALTA"));
+        assertThrows(InvalidDataVencimentoException.class, () -> this.tarefaService.criarTarefa("Título Criada", "Descrição Criada", "      ", "ALTA"));
+        assertThrows(InvalidDataVencimentoFormatException.class, () -> this.tarefaService.criarTarefa("Título Criada", "Descrição Criada", "23-09-2024", "ALTA"));
+        assertThrows(InvalidDescricaoException.class, () -> this.tarefaService.criarTarefa("Título Criada", null, "23/09/2024", "ALTA"));
+        assertThrows(InvalidDescricaoException.class, () -> this.tarefaService.criarTarefa("Título Criada", "", "23/09/2024", "ALTA"));
+        assertThrows(InvalidDescricaoException.class, () -> this.tarefaService.criarTarefa("Título Criada", "    ", "23/09/2024", "ALTA"));
+        assertThrows(InvalidTituloException.class, () -> this.tarefaService.criarTarefa(null, "Descrição Criada", "23/09/2024", "ALTA"));
+        assertThrows(InvalidTituloException.class, () -> this.tarefaService.criarTarefa("", "Descrição Criada", "23/09/2024", "ALTA"));
+        assertThrows(InvalidTituloException.class, () -> this.tarefaService.criarTarefa("    ", "Descrição Criada", "23/09/2024", "ALTA"));
     }
 
     @Test
@@ -227,7 +193,7 @@ public class TarefaServiceTest {
 
         tarefaTeste.setPrioridade(TarefaPrioridade.PRIORIDADE_BAIXA);
 
-        Tarefa tarefaAtualizada = this.tarefaService.atualizarTarefa(tarefaTeste);
+        Tarefa tarefaAtualizada = this.tarefaService.atualizarTarefa(tarefaTeste.getId(), tarefaTeste);
         assertEquals(tarefaAtualizada.getPrioridade(), TarefaPrioridade.PRIORIDADE_BAIXA);
 
 
@@ -239,48 +205,48 @@ public class TarefaServiceTest {
     void atualizarTarefaInvalidaTeste(){
         assertThrows(InvalidPrioridadeException.class, () -> {
             tarefaTeste.setPrioridade(null);
-            this.tarefaService.atualizarTarefa(tarefaTeste);
+            this.tarefaService.atualizarTarefa(tarefaTeste.getId(), tarefaTeste);
         });
         assertThrows(InvalidDataVencimentoException.class, () -> {
             tarefaTeste.setDataVencimento(null);
-            this.tarefaService.atualizarTarefa(tarefaTeste);
+            this.tarefaService.atualizarTarefa(tarefaTeste.getId(), tarefaTeste);
         });
         assertThrows(InvalidDataVencimentoException.class, () -> {
             tarefaTeste.setDataVencimento("    ");
-            this.tarefaService.atualizarTarefa(tarefaTeste);
+            this.tarefaService.atualizarTarefa(tarefaTeste.getId(), tarefaTeste);
         });
         assertThrows(InvalidDataVencimentoException.class, () -> {
             tarefaTeste.setDataVencimento("");
-            this.tarefaService.atualizarTarefa(tarefaTeste);
+            this.tarefaService.atualizarTarefa(tarefaTeste.getId(), tarefaTeste);
         });
         assertThrows(InvalidDataVencimentoFormatException.class, () -> {
             tarefaTeste.setDataVencimento("22 de Dezembro d 2024");
-            this.tarefaService.atualizarTarefa(tarefaTeste);
+            this.tarefaService.atualizarTarefa(tarefaTeste.getId(), tarefaTeste);
         });
 
         assertThrows(InvalidDescricaoException.class, () -> {
             tarefaTeste.setDescricao(null);
-            this.tarefaService.atualizarTarefa(tarefaTeste);
+            this.tarefaService.atualizarTarefa(tarefaTeste.getId(), tarefaTeste);
         });
         assertThrows(InvalidDescricaoException.class, () -> {
             tarefaTeste.setDescricao("   ");
-            this.tarefaService.atualizarTarefa(tarefaTeste);
+            this.tarefaService.atualizarTarefa(tarefaTeste.getId(), tarefaTeste);
         });
         assertThrows(InvalidDescricaoException.class, () -> {
             tarefaTeste.setDescricao("");
-            this.tarefaService.atualizarTarefa(tarefaTeste);
+            this.tarefaService.atualizarTarefa(tarefaTeste.getId(), tarefaTeste);
         });
         assertThrows(InvalidTituloException.class, () -> {
             tarefaTeste.setTitulo(null);
-            this.tarefaService.atualizarTarefa(tarefaTeste);
+            this.tarefaService.atualizarTarefa(tarefaTeste.getId(), tarefaTeste);
         });
         assertThrows(InvalidTituloException.class, () -> {
             tarefaTeste.setTitulo("     ");
-            this.tarefaService.atualizarTarefa(tarefaTeste);
+            this.tarefaService.atualizarTarefa(tarefaTeste.getId(), tarefaTeste);
         });
         assertThrows(InvalidTituloException.class, () -> {
             tarefaTeste.setTitulo("");
-            this.tarefaService.atualizarTarefa(tarefaTeste);
+            this.tarefaService.atualizarTarefa(tarefaTeste.getId(), tarefaTeste);
         });
     }
 
@@ -298,9 +264,7 @@ public class TarefaServiceTest {
 
     @Test
     void removerTarefaIdInvalidoTeste(){
-        assertThrows(InvalidIDException.class, () -> {
-            this.tarefaService.removerTarefa(null);
-        });
+        assertThrows(InvalidIDException.class, () -> this.tarefaService.removerTarefa(null));
     }
 
 }
