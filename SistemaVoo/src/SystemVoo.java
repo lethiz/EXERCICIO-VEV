@@ -37,7 +37,8 @@ public class SystemVoo {
     public static String menu(Scanner scanner) {
         System.out.println(
                 """
-                    (L)istar Voos
+                    (L)istar todos os voos
+                    (B)uscar voo específico
                     (F)azer uma reserva
                     (C)ancelar reserva
                     (V)erificar minha reserva
@@ -48,30 +49,14 @@ public class SystemVoo {
 
     private static void executarOperacao(String operacao, VooRepository voos, ReservaRepository reservas, Scanner scanner) {
         switch (operacao) {
-            case "L" -> listarVoosMenu(voos, scanner);
+            case "L" -> listarTodosVoos(voos);
+            case "B" -> coletarFiltros(voos, scanner);
             case "F" -> criarReserva(voos, reservas, scanner);
             case "C" -> cancelarReserva(scanner, voos, reservas);
             case "V" -> verificarReserva(scanner, reservas);
             case "E" -> sair();
             default -> System.out.println("Opção inválida!");
         }
-    }
-
-    // Exibe o menu de listagem dos voos
-    private static void listarVoosMenu(VooRepository voos, Scanner scanner) {
-
-        System.out.println("\nSeleciona uma opção:");
-        System.out.println("(1) - Listar todos os voos.");
-        System.out.println("(2) - Listar com base em algum critério.");
-        String escolha = scanner.nextLine();
-
-        switch(escolha) {
-            case "1" -> listarTodosVoos(voos);
-            case "2" -> coletarFiltros(voos, scanner);
-            default -> System.out.println("Opção inválida! Retornando ao menu inicial.");
-        }
-
-
     }
 
     // Coleta os filtros do voo
