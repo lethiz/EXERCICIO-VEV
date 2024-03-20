@@ -62,12 +62,20 @@ public class Reserva {
         return this.username;
     }
 
+    public String getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
     public UUID getVooId() {
         return this.vooId;
     }
 
     public int getAmountPassengers() {
         return this.amountPassengers;
+    }
+
+    public float getValorTotal() {
+        return this.valorTotal;
     }
 
     @Override
