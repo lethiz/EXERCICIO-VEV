@@ -16,7 +16,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TarefaServiceTest {
+public class TarefaServiceTDDTest {
     private Tarefa tarefaTeste;
     private Tarefa tarefaTesteOutra;
     private Tarefa tarefaTesteFinal;
@@ -74,6 +74,7 @@ public class TarefaServiceTest {
         assertEquals(tarefasBuscadas.get(1), tarefaTesteFinal);
         assertEquals(tarefasBuscadas.get(2), tarefaTesteOutra);
     }
+
     @Test
     void buscarTarefasOrdenadasTesteFinal() throws InvalidComparacaoException {
         List<Tarefa> tarefasBuscadas = this.tarefaService.buscarTarefasOrdenadas("OUTRA_COISA");

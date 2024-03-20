@@ -53,3 +53,5 @@ public class CheckInvalids {
         if(tarefa == null) throw new InvalidTarefaException("É inválido tentar " + metodo + " uma tarefa nula.");
     }
 }
+
+

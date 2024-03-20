@@ -3,7 +3,7 @@ package models.tests;
 import models.Reserva;
 import models.Voo;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.UUID;
