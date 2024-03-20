@@ -1,10 +1,12 @@
-package main.services;
+package main.functionalTests;
 
 import main.exceptions.InvalidIDException;
 import main.exceptions.Model.*;
 import main.exceptions.Service.InvalidComparacaoException;
 import main.exceptions.Service.InvalidTarefaException;
 import main.models.Tarefa;
+import main.services.ITarefaService;
+import main.services.TarefaService;
 import main.util.TarefaPrioridade;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
