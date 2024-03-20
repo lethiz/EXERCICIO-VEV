@@ -15,6 +15,32 @@ public class Voo {
     private float preco;
 
     public Voo(String origem, String destino, int totalPassageiros, LocalDate data, float preco) {
+
+        if (origem == null) {
+            throw new NullPointerException("Origem nula!");
+        } else if (origem.trim().isEmpty() || origem.trim().length() < 2) {
+            throw new IllegalArgumentException("Origem inválida!");
+        }
+
+        if (destino == null || destino.trim().isEmpty() || destino.trim().length() < 2) {
+            throw new IllegalArgumentException("Destino inválido!");
+        }
+
+        if (totalPassageiros <= 0) {
+            throw new IllegalArgumentException("Total de passageiros inválido!");
+        }
+
+        LocalDate today = LocalDate.now();
+        if (data == null) {
+            throw new NullPointerException("Data nula!");
+        } else if (data.isBefore(today)) {
+            throw new IllegalArgumentException("Data no passado!");
+        }
+
+        if (preco <= 0) {
+            throw new IllegalArgumentException("Preço inválido!");
+        }
+
         this.preco = preco;
         this.ID = UUID.randomUUID();
         this.origem = origem;
