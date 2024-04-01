@@ -4,6 +4,7 @@ import models.Voo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIf;
 
 import java.time.LocalDate;
 
@@ -26,12 +27,14 @@ public class VooUnitTests {
         Voo voo = new Voo(origem, destino, totalPassageiros, data, preco);
 
         // Assert
-        assertNotNull(voo);
-        assertEquals(origem, voo.getOrigem());
-        assertEquals(destino, voo.getDestino());
-        assertEquals(totalPassageiros, voo.getTotalPassageiros());
-        assertEquals(data, voo.getData());
-        assertEquals(preco, voo.getPreco());
+        assertAll("Voo",
+                () -> assertNotNull(voo),
+                () -> assertEquals(origem, voo.getOrigem()),
+                () -> assertEquals(destino, voo.getDestino()),
+                () -> assertEquals(totalPassageiros, voo.getTotalPassageiros()),
+                () -> assertEquals(data, voo.getData()),
+                () -> assertEquals(preco, voo.getPreco())
+        );
     }
 
     @Test
@@ -115,11 +118,14 @@ public class VooUnitTests {
         String result = voo.toString();
 
         // Assert
-        assertTrue(result.contains("ID=" + voo.getID()));
-        assertTrue(result.contains("Origem: 'Origem'"));
-        assertTrue(result.contains("Destino: 'Destino'"));
-        assertTrue(result.contains("Total de passageiros: 100"));
-        assertTrue(result.contains("Data: 2026-01-01"));
-        assertTrue(result.contains("Valor da passagem: 100.0"));
+        assertAll("toString",
+                () -> assertTrue(result.contains("ID=" + voo.getID())),
+                () -> assertTrue(result.contains("Origem: 'Origem'")),
+                () -> assertTrue(result.contains("Destino: 'Destino'")),
+                () -> assertTrue(result.contains("Total de passageiros: 100")),
+                () -> assertTrue(result.contains("Data: 2026-01-01")),
+                () -> assertTrue(result.contains("Valor da passagem: 100.0"))
+        );
+
     }
 }
