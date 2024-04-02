@@ -178,7 +178,7 @@ public class SystemTarefas {
         System.out.println("--------------------------------------------\n");
     }
 
-    public static void atualizarTarefa(ITarefaService service, Scanner scanner) throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDataVencimentoFormatException, InvalidDescricaoException, InvalidTituloException, InvalidIDException {
+    public static void atualizarTarefa(ITarefaService service, Scanner scanner) throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDataVencimentoFormatException, InvalidDescricaoException, InvalidTituloException, InvalidIDException, InvalidTarefaException {
         System.out.println("Digite o ID da tarefa a qual você deseja marcar atualizar: ");
         String tarefaId = scanner.nextLine();
 

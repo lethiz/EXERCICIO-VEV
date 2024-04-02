@@ -10,11 +10,11 @@ import java.text.SimpleDateFormat;
 
 public class CheckInvalids {
 
+
     public void checkId(String id) throws InvalidIDException {
         if(id == null) throw new InvalidIDException("ID inválido: não pode ser nulo.");
         if(id.isBlank()) throw new InvalidIDException("ID inválido: não pode estar em branco.");
         if(id.isEmpty()) throw new InvalidIDException("ID inválido: não pode ser vazio.");
-
     }
 
     public void checkTitulo(String titulo) throws InvalidTituloException {
@@ -46,6 +46,13 @@ public class CheckInvalids {
 
     public void checkPrioridade(TarefaPrioridade prioridade) throws InvalidPrioridadeException {
         if(prioridade == null) throw new InvalidPrioridadeException("Prioridade inválida: não pode ser nula.");
+
+    }
+
+    public void checkPrioridade(String prioridade) throws InvalidPrioridadeException {
+        if(prioridade == null) throw new InvalidPrioridadeException("Prioridade inválida: não pode ser nula.");
+        if(prioridade.isEmpty()) throw new InvalidPrioridadeException("Prioridade inválida: não pode ser vazia.");
+        if(prioridade.isBlank()) throw new InvalidPrioridadeException("Prioridade inválida: não pode estar em branco.");
 
     }
 

@@ -311,7 +311,7 @@ public class TarefaServicePDETest {
     }
 
     @Test
-    void atualizarTarefaTesteC24() throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDataVencimentoFormatException, InvalidDescricaoException, InvalidIDException, InvalidTituloException {
+    void atualizarTarefaTesteC24() throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDataVencimentoFormatException, InvalidDescricaoException, InvalidIDException, InvalidTituloException, InvalidTarefaException {
         this.tarefaTeste = this.tarefaService.criarTarefa("Título", "Descrição", "25/09/2024", "ALTA");
 
         List<Tarefa> tarefasBuscadas = this.tarefaService.buscarTarefas();

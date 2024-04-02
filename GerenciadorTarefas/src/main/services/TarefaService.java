@@ -69,6 +69,8 @@ public class TarefaService implements ITarefaService{
     public Tarefa marcarPrioridade(String idTarefa, String prioridade) throws InvalidIDException, InvalidTarefaException, InvalidPrioridadeException {
         checkInvalids.checkId(idTarefa);
 
+        checkInvalids.checkPrioridade(prioridade);
+
         TarefaPrioridade tarefaPrioridade = TarefaPrioridade.PRIORIDADE_INDEFINIDA;
         if(prioridade.equalsIgnoreCase("ALTA")) tarefaPrioridade = TarefaPrioridade.PRIORIDADE_ALTA;
         else if(prioridade.equalsIgnoreCase("MEDIA") || prioridade.equalsIgnoreCase("MÉDIA") ) tarefaPrioridade = TarefaPrioridade.PRIORIDADE_MEDIA;
@@ -98,6 +100,8 @@ public class TarefaService implements ITarefaService{
     }
 
     public Tarefa criarTarefa(String titulo, String descricao, String dataVencimento, String prioridade) throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDescricaoException, InvalidTituloException, InvalidDataVencimentoFormatException {
+        checkInvalids.checkPrioridade(prioridade);
+
         TarefaPrioridade tarefaPrioridade = TarefaPrioridade.PRIORIDADE_INDEFINIDA;
         if(prioridade.equalsIgnoreCase("ALTA")) tarefaPrioridade = TarefaPrioridade.PRIORIDADE_ALTA;
         else if(prioridade.equalsIgnoreCase("MEDIA") || prioridade.equalsIgnoreCase("MÉDIA") ) tarefaPrioridade = TarefaPrioridade.PRIORIDADE_MEDIA;
@@ -115,10 +119,12 @@ public class TarefaService implements ITarefaService{
 
         return tarefaCriada;
     }
-    public Tarefa atualizarTarefa(String idTarefa, Tarefa tarefa) throws InvalidIDException, InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDescricaoException, InvalidTituloException, InvalidDataVencimentoFormatException {
-        checkInvalids.checkId(tarefa.getId());
+    public Tarefa atualizarTarefa(String idTarefa, Tarefa tarefa) throws InvalidIDException, InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDescricaoException, InvalidTituloException, InvalidDataVencimentoFormatException, InvalidTarefaException {
+        checkInvalids.checkId(idTarefa);
 
         Tarefa tarefaRecuperada = tarefasRepository.recuperarTarefa(idTarefa);
+
+        checkInvalids.checkTarefa(tarefaRecuperada, "atualizar");
 
         checkInvalids.checkTitulo(tarefa.getTitulo());
         checkInvalids.checkDescricao(tarefa.getDescricao());

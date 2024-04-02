@@ -188,7 +188,7 @@ public class TarefaServiceTDDTest {
     }
 
     @Test
-    void atualizarTarefaTeste() throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDataVencimentoFormatException, InvalidDescricaoException, InvalidIDException, InvalidTituloException {
+    void atualizarTarefaTeste() throws InvalidPrioridadeException, InvalidDataVencimentoException, InvalidDataVencimentoFormatException, InvalidDescricaoException, InvalidIDException, InvalidTituloException, InvalidTarefaException {
         List<Tarefa> tarefasBuscadas = this.tarefaService.buscarTarefas();
         assertEquals(3, tarefasBuscadas.size());
 
