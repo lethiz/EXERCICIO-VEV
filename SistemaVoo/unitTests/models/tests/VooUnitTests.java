@@ -97,13 +97,10 @@ public class VooUnitTests {
     @DisplayName("10 - Teste de decremento do total de passageiros.")
     @Tag("TesteDeFuncionalidade")
     public void testDecrementarTotalPassageirosValidTotalPassageirosDecremented() {
-        // Arrange
         Voo voo = new Voo("Origem", "Destino", 100, LocalDate.now().plusDays(1), 100.0f);
 
-        // Act
         voo.decrementarTotalPassageiros(50);
 
-        // Assert
         assertEquals(50, voo.getTotalPassageiros());
     }
 
@@ -111,13 +108,10 @@ public class VooUnitTests {
     @DisplayName("11 - Teste da formatação do toString.")
     @Tag("TesteDeFuncionalidade")
     public void testToStringCorrectFormatReturnsFormattedString() {
-        // Arrange
         Voo voo = new Voo("Origem", "Destino", 100, LocalDate.of(2026, 1, 1), 100.0f);
 
-        // Act
         String result = voo.toString();
 
-        // Assert
         assertAll("toString",
                 () -> assertTrue(result.contains("ID=" + voo.getID())),
                 () -> assertTrue(result.contains("Origem: 'Origem'")),
