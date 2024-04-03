@@ -122,4 +122,52 @@ public class VooUnitTests {
         );
 
     }
+
+    @Test
+    @DisplayName("Teste do método setOrigem")
+    @Tag("TesteDeFuncionalidade")
+    public void testSetOrigem() {
+        Voo voo = new Voo("Origem", "Destino", 100, LocalDate.now(), 100.0f);
+        String novaOrigem = "Nova Origem";
+
+        voo.setOrigem(novaOrigem);
+
+        assertEquals(novaOrigem, voo.getOrigem());
+    }
+
+    @Test
+    @DisplayName("Teste do método setTotalPassageiros")
+    @Tag("TesteDeFuncionalidade")
+    public void testSetTotalPassageiros() {
+        Voo voo = new Voo("Origem", "Destino", 100, LocalDate.now(), 100.0f);
+        int novoTotalPassageiros = 150;
+
+        voo.setTotalPassageiros(novoTotalPassageiros);
+
+        assertEquals(novoTotalPassageiros, voo.getTotalPassageiros());
+    }
+
+    @Test
+    @DisplayName("Teste do método setDestino")
+    @Tag("TesteDeFuncionalidade")
+    public void testSetDestino() {
+        Voo voo = new Voo("Origem", "Destino", 100, LocalDate.now(), 100.0f);
+        String novoDestino = "Novo Destino";
+
+        voo.setDestino(novoDestino);
+
+        assertEquals(novoDestino, voo.getDestino());
+    }
+
+    @Test
+    @DisplayName("Teste do método setData")
+    @Tag("TesteDeFuncionalidade")
+    public void testSetData() {
+        Voo voo = new Voo("Origem", "Destino", 100, LocalDate.now(), 100.0f);
+        LocalDate novaData = LocalDate.of(2024, 12, 25);
+
+        voo.setData(novaData);
+
+        assertEquals(novaData, voo.getData());
+    }
 }

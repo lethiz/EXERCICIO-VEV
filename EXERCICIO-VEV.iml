@@ -10,7 +10,7 @@
       <sourceFolder url="file://$MODULE_DIR$/SistemaVoo/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/SistemaVoo/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/SistemaVoo/functionalTests" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/SistemaVoo/unitTests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/SistemaVoo/junit5Tests" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
